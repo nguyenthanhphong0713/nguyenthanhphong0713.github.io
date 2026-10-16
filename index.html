@@ -1,0 +1,2319 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nguyễn Thanh Phong | Tech Lead tại Arito Solutions • SQL Server & ERP</title>
+  <meta name="description" content="Trang cá nhân của Nguyễn Thanh Phong - Tech Lead tại Arito Solutions, chuyên sâu SQL Server, Arito ERP, Fast ERP và các dự án doanh nghiệp lớn.">
+  <meta name="keywords" content="Nguyen Thanh Phong, ntp1307, Tech Lead, Arito Solutions, Arito ERP, Fast ERP, SQL Server, GreenYellow, Tentamus, THK, Ngoc Nghia">
+  
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      /* Dark Theme (Mặc định) */
+      --bg-base: #0f172a;
+      --bg-surface: #1e293b;
+      --bg-card: #182234;
+      --bg-card-hover: #243248;
+      --border-color: #334155;
+      --border-light: #475569;
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-subtle: #64748b;
+      
+      --primary: #38bdf8;
+      --primary-hover: #0284c7;
+      --primary-soft: rgba(56, 189, 248, 0.12);
+      
+      --accent: #3b82f6;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --transition: all 0.2s ease-in-out;
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --border-color: #e2e8f0;
+      --border-light: #cbd5e1;
+      
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-subtle: #64748b;
+      
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --primary-soft: rgba(2, 132, 199, 0.1);
+      
+      --accent: #2563eb;
+      --emerald: #059669;
+      --amber: #d97706;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      line-height: 1.6;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(15, 23, 42, 0.9);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    [data-theme="light"] header {
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .logo-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--primary);
+      flex-shrink: 0;
+    }
+
+    .logo-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .logo-title {
+      font-size: 0.75rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 22px;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: var(--transition);
+      padding: 6px 0;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--primary);
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lang-switch {
+      display: flex;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 2px;
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-muted);
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+
+    .lang-btn.active {
+      background: var(--primary);
+      color: #0f172a;
+    }
+
+    .icon-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .icon-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 60px 0 44px;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 14px;
+      background: var(--primary-soft);
+      border: 1px solid var(--primary);
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: 2.45rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-summary {
+      font-size: 1.025rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 26px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #0f172a;
+      border: 1px solid var(--primary);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      color: #ffffff;
+      border-color: var(--primary-hover);
+    }
+
+    .btn-outline {
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-linkedin {
+      background: #0a66c2;
+      color: #ffffff;
+      border: 1px solid #0a66c2;
+    }
+
+    .btn-linkedin:hover {
+      background: #084e96;
+    }
+
+    .btn-github {
+      background: #24292e;
+      color: #ffffff;
+      border: 1px solid #444c56;
+    }
+
+    .btn-github:hover {
+      background: #1b1f23;
+      border-color: #58a6ff;
+      color: #58a6ff;
+    }
+
+    [data-theme="light"] .btn-github {
+      background: #24292f;
+      color: #ffffff;
+      border: 1px solid #24292f;
+    }
+
+    [data-theme="light"] .btn-github:hover {
+      background: #0f1419;
+      color: #ffffff;
+    }
+
+    /* Summary Card with Avatar */
+    .summary-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .profile-intro {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 4px;
+    }
+
+    .avatar-wrap {
+      position: relative;
+      width: 82px;
+      height: 82px;
+      flex-shrink: 0;
+    }
+
+    .hero-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary);
+      box-shadow: 0 4px 14px var(--primary-soft);
+    }
+
+    .status-online {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 14px;
+      height: 14px;
+      background-color: var(--emerald);
+      border: 2.5px solid var(--bg-surface);
+      border-radius: 50%;
+    }
+
+    .profile-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 2px;
+    }
+
+    .profile-sub {
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .profile-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .badge-mini {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 7px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      color: var(--text-main);
+    }
+
+    .summary-divider {
+      height: 1px;
+      background: var(--border-color);
+      margin: -2px 0 2px;
+    }
+
+    .summary-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .summary-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--primary-soft);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .summary-detail h4 {
+      font-size: 0.925rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .summary-detail p {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* Stats Row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .stat-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+    }
+
+    .stat-number {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--primary);
+      font-family: var(--font-mono);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Section Chung */
+    .section {
+      padding: 60px 0;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .section-head {
+      margin-bottom: 34px;
+    }
+
+    .section-badge {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .section-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    /* 3 Cột Trọng Tâm Chuyên Môn */
+    .core-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .pillar-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .pillar-card:hover {
+      border-color: var(--border-light);
+    }
+
+    .pillar-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pillar-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--primary-soft);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .pillar-head h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .pillar-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pillar-list li {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+
+    .pillar-list li svg {
+      color: var(--emerald);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    /* Danh mục Dự án Tech Lead Arito */
+    .project-group {
+      margin-bottom: 34px;
+    }
+
+    .project-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .group-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 6px 0 8px 14px;
+      border-left: 3.5px solid var(--primary);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .group-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .client-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .client-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: var(--transition);
+    }
+
+    .client-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .client-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .client-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.35;
+    }
+
+    .client-role-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .client-field {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .client-field strong {
+      color: var(--text-subtle);
+    }
+
+    .client-impl {
+      background: var(--bg-card);
+      border-left: 3px solid var(--primary);
+      padding: 9px 12px;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.835rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .client-impl strong {
+      color: var(--primary);
+    }
+
+    /* Các Extension & Tiện Ích Tự Phát Triển */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .tool-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+    }
+
+    .tool-card:hover {
+      border-color: var(--primary);
+    }
+
+    .tool-badge-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .tool-type {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-radius: 4px;
+      font-family: var(--font-mono);
+    }
+
+    .tool-target {
+      font-size: 0.75rem;
+      color: var(--emerald);
+      font-weight: 600;
+    }
+
+    .tool-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .tool-problem {
+      background: var(--bg-card);
+      border-left: 3px solid var(--amber);
+      padding: 10px 12px;
+      border-radius: 0 4px 4px 0;
+      margin-bottom: 14px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    .tool-problem strong {
+      color: var(--amber);
+    }
+
+    .tool-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .tool-features li {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+
+    .tool-features li svg {
+      color: var(--primary);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .tool-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .tag-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+
+    /* Timeline Hành trình phát triển (Học tập -> Fast ERP -> Arito ERP) */
+    .timeline {
+      position: relative;
+      max-width: 960px;
+      margin: 0 auto;
+      padding-left: 48px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 17px;
+      top: 15px;
+      bottom: 25px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--primary) 0%, var(--emerald) 50%, var(--amber) 100%);
+      opacity: 0.35;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 32px;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -48px;
+      top: 4px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      border: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      z-index: 2;
+      box-shadow: 0 0 0 4px var(--bg-base);
+      transition: var(--transition);
+    }
+
+    .timeline-item.stage-fast .timeline-dot {
+      border-color: var(--emerald);
+      color: var(--emerald);
+    }
+
+    .timeline-item.stage-edu .timeline-dot {
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+
+    .timeline-item:hover .timeline-dot {
+      transform: scale(1.1);
+    }
+
+    .timeline-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+      transition: var(--transition);
+    }
+
+    .timeline-card:hover {
+      border-color: var(--border-light);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .timeline-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .timeline-role {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .timeline-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .timeline-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stage-arito .timeline-badge {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .stage-fast .timeline-badge {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .stage-edu .timeline-badge {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--amber);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .timeline-period {
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .timeline-company {
+      font-size: 0.95rem;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .stage-fast .timeline-company {
+      color: var(--emerald);
+    }
+
+    .stage-edu .timeline-company {
+      color: var(--amber);
+    }
+
+    .timeline-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .timeline-tag {
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      padding: 2px 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+
+    .timeline-bullets {
+      list-style: none;
+      padding-left: 0;
+      color: var(--text-muted);
+      font-size: 0.885rem;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      line-height: 1.6;
+    }
+
+    .timeline-bullets li {
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .timeline-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 0.95rem;
+    }
+
+    .stage-fast .timeline-bullets li::before {
+      color: var(--emerald);
+    }
+
+    .stage-edu .timeline-bullets li::before {
+      color: var(--amber);
+    }
+
+    /* Liên hệ */
+    .contact-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .contact-card h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .contact-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .contact-row:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .contact-row svg {
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+    footer {
+      padding: 30px 0;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-subtle);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--primary);
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      display: none;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 880px) {
+      .hero-layout, .core-pillars, .client-grid, .tools-grid, .contact-card {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+      nav ul {
+        display: none;
+      }
+      .hero h1 {
+        font-size: 1.95rem;
+      }
+      .timeline {
+        padding-left: 36px;
+      }
+      .timeline::before {
+        left: 12px;
+      }
+      .timeline-dot {
+        left: -36px;
+        width: 28px;
+        height: 28px;
+        top: 2px;
+      }
+      .timeline-dot svg {
+        width: 14px;
+        height: 14px;
+      }
+      .timeline-card {
+        padding: 18px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="container nav-bar">
+      <a href="#" class="logo">
+        <img src="./avatar.jpg" alt="Nguyễn Thanh Phong" class="logo-avatar">
+        <div>
+          <div class="logo-name">Nguyễn Thanh Phong</div>
+          <div class="logo-title" data-i18n="logo.title">Tech Lead @ Arito Solutions</div>
+        </div>
+      </a>
+
+      <nav>
+        <ul>
+          <li><a href="#focus" data-i18n="nav.focus">Chuyên môn</a></li>
+          <li><a href="#projects" data-i18n="nav.projects">Dự án Tech Lead</a></li>
+          <li><a href="#extensions" data-i18n="nav.extensions">Extension hỗ trợ</a></li>
+          <li><a href="#timeline" data-i18n="nav.timeline">Hành trình phát triển</a></li>
+          <li><a href="#contact" data-i18n="nav.contact">Liên hệ</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-controls">
+        <div class="lang-switch">
+          <button class="lang-btn active" id="btnVi" onclick="setLang('vi')">VI</button>
+          <button class="lang-btn" id="btnEn" onclick="setLang('en')">EN</button>
+        </div>
+
+        <button class="icon-btn" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">
+          <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-layout">
+          <div class="hero-info">
+            <div class="hero-tag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"></path>
+              </svg>
+              <span data-i18n="hero.tag">Tech Lead • Arito Solutions • SQL Server • ERP</span>
+            </div>
+
+            <h1 data-i18n="hero.headline">Tech Lead Giải Pháp ERP &amp; Cơ Sở Dữ Liệu SQL Server</h1>
+
+            <p class="hero-summary" data-i18n="hero.desc">
+              Tôi là <strong>Nguyễn Thanh Phong</strong>, hiện đảm nhiệm vị trí <strong>Tech Lead tại Arito Solutions</strong>. Đóng vai trò cầu nối kỹ thuật cốt lõi giữa bài toán nghiệp vụ doanh nghiệp và Development Team; định hướng giải pháp, thiết kế kiến trúc hệ thống và lead team phát triển triển khai thành công các dự án ERP toàn diện cho các tập đoàn sản xuất, chuỗi thương mại bán lẻ quy mô lớn, FDI và năng lượng.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#projects" class="btn btn-primary">
+                <span data-i18n="hero.btnProjects">Dự án tham gia</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg>
+              </a>
+
+              <a href="https://github.com/nguyenthanhphong0713" target="_blank" rel="noopener noreferrer" class="btn btn-github">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+                <span>GitHub Profile</span>
+              </a>
+
+              <a href="https://www.linkedin.com/in/ntp1307" target="_blank" rel="noopener noreferrer" class="btn btn-linkedin">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.66 1.66 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.66-1.66 1.66 1.66 0 0 0-1.66-1.66Z"/>
+                </svg>
+                <span>LinkedIn</span>
+              </a>
+
+              <a href="#contact" class="btn btn-outline">
+                <span data-i18n="hero.btnContact">Thông tin liên hệ</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card Profile & Tóm Tắt Trọng Tâm Công Việc -->
+          <div class="summary-card">
+            <div class="profile-intro">
+              <div class="avatar-wrap">
+                <img src="./avatar.jpg" alt="Nguyễn Thanh Phong" class="hero-avatar">
+                <span class="status-online" title="Đang làm việc / Active"></span>
+              </div>
+              <div class="profile-details">
+                <h3 class="profile-name">Nguyễn Thanh Phong</h3>
+                <div class="profile-sub">Tech Lead @ Arito Solutions</div>
+                <div class="profile-badges">
+                  <span class="badge-mini">Arito ERP</span>
+                  <span class="badge-mini">SQL Server</span>
+                  <span class="badge-mini">Fast ERP</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <div class="summary-item">
+              <div class="summary-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                  <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"></path>
+                </svg>
+              </div>
+              <div class="summary-detail">
+                <h4 data-i18n="card.sql.title">Cơ sở dữ liệu SQL Server</h4>
+                <p data-i18n="card.sql.desc">Thiết kế schema dữ liệu lớn, viết Stored Procedure tính toán phức tạp, kiểm soát toàn vẹn dữ liệu và tối ưu hóa truy vấn.</p>
+              </div>
+            </div>
+
+            <div class="summary-item">
+              <div class="summary-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+                  <path d="M6 6h10"></path>
+                  <path d="M6 10h10"></path>
+                </svg>
+              </div>
+              <div class="summary-detail">
+                <h4 data-i18n="card.erp.title">Kiến Trúc ERP &amp; Đa Phân Hệ</h4>
+                <p data-i18n="card.erp.desc">Quản trị ERP tổng thể, Chuỗi cung ứng, Mua hàng/Procurement, Tích hợp API, HRM, E-sourcing, LIMS chuyên sâu.</p>
+              </div>
+            </div>
+
+            <div class="summary-item">
+              <div class="summary-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                  <polyline points="2 17 12 22 22 17"></polyline>
+                  <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+              </div>
+              <div class="summary-detail">
+                <h4 data-i18n="card.tool.title">Tự Phát Triển Tool Nội Bộ</h4>
+                <p data-i18n="card.tool.desc">Xây dựng extension cho SSMS và Visual Studio giúp dev team format T-SQL và autocomplete mã kịch bản ERP.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Điểm Số Thực Tế -->
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="stat-number">12+</div>
+            <div class="stat-label" data-i18n="stat.s1">Dự án doanh nghiệp lớn &amp; tập đoàn trực tiếp Tech Lead</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">4+</div>
+            <div class="stat-label" data-i18n="stat.s2">Phát triển các tool phục vụ nội bộ</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">100%</div>
+            <div class="stat-label" data-i18n="stat.s3">Tập trung bài toán thực tế của ERP &amp; tối ưu hóa hiệu năng</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trọng tâm chuyên môn -->
+    <section class="section" id="focus">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-badge" data-i18n="focus.badge">Năng lực thực tế</span>
+          <h2 class="section-title" data-i18n="focus.title">3 Trọng Tâm Chuyên Môn Cốt Lõi</h2>
+          <p class="section-desc" data-i18n="focus.subtitle">Kinh nghiệm thực tiễn đúc kết từ vai trò Tech Lead và kiến trúc hệ thống ERP doanh nghiệp.</p>
+        </div>
+
+        <div class="core-pillars">
+          <!-- Cột 1: SQL Server -->
+          <div class="pillar-card">
+            <div class="pillar-head">
+              <div class="pillar-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                </svg>
+              </div>
+              <h3 data-i18n="pillar1.title">Microsoft SQL Server</h3>
+            </div>
+            <ul class="pillar-list">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span data-i18n="pillar1.i1">Viết Stored Procedure, Function tính toán số liệu sổ sách kế toán, công nợ, xuất nhập tồn.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span data-i18n="pillar1.i2">Tối ưu hóa câu lệnh query chậm, xem xét Execution Plan, đánh Index bảng chứng từ lớn.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span data-i18n="pillar1.i3">Kiểm soát tính toàn vẹn dữ liệu qua Stored Procedure &amp; nghiệp vụ: khóa sổ kế toán, kiểm tra tồn kho âm, kiểm soát điều kiện ghi sổ.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span data-i18n="pillar1.i4">Bảo trì cơ sở dữ liệu: sao lưu (backup), phục hồi (restore), kiểm tra phân mảnh bảng.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Cột 2: Arito ERP & Fast ERP -->
+          <div class="pillar-card">
+            <div class="pillar-head">
+              <div class="pillar-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                  <path d="M7 7h10v10H7z"></path>
+                </svg>
+              </div>
+              <h3 data-i18n="pillar2.title">Arito ERP &amp; Fast ERP</h3>
+            </div>
+            <ul class="pillar-list">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span data-i18n="pillar2.i1">Thành thạo cấu trúc XML Metadata (định nghĩa danh mục, màn hình chứng từ, trường dữ liệu, validation).</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span data-i18n="pillar2.i2">Lập trình kịch bản xử lý sự kiện giao diện, kiểm soát tính hợp lệ của dữ liệu nhập liệu trên màn hình và tính toán tự động số liệu chứng từ.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span data-i18n="pillar2.i3">Lập trình báo cáo quản trị, bảng cân đối số phát sinh, sổ cái, báo cáo bán hàng, báo cáo công nợ.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span data-i18n="pillar2.i4">Chỉnh sửa logic tính toán và quy trình duyệt chứng từ theo từng bài toán đặc thù của doanh nghiệp.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Cột 3: Tự động hóa & Tooling -->
+          <div class="pillar-card">
+            <div class="pillar-head">
+              <div class="pillar-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                </svg>
+              </div>
+              <h3 data-i18n="pillar3.title">Tự Xây Dựng Extension</h3>
+            </div>
+            <ul class="pillar-list">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span data-i18n="pillar3.i1">Tự phát triển Extension cho SSMS &amp; Visual Studio bằng C# (.NET / VSSDK) để giải quyết các điểm nghẽn năng suất.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span data-i18n="pillar3.i2">Viết các script tự động hóa bằng Python/PowerShell phục vụ trích xuất, chuyển đổi dữ liệu kế toán và tài liệu.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span data-i18n="pillar3.i3">Không chỉ dừng ở việc dùng công cụ có sẵn mà chủ động code thêm công cụ để công việc chạy nhanh và chuẩn hơn.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DỰ ÁN TECH LEAD TẠI ARITO SOLUTIONS -->
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-badge" data-i18n="arito.badge">Hồ sơ năng lực thực tế</span>
+          <h2 class="section-title" data-i18n="arito.title">Dự Án Tech Lead Chính Tại Arito Solutions</h2>
+          <p class="section-desc" data-i18n="arito.subtitle">Các dự án doanh nghiệp lớn trực tiếp tiếp nhận yêu cầu cốt lõi, thiết kế giải pháp kỹ thuật và lead development team triển khai.</p>
+        </div>
+
+        <!-- Tập đoàn & Doanh nghiệp Lớn -->
+        <div class="project-group">
+          <div class="group-header">
+            <h3 class="group-title" data-i18n="grp1.title">Khối Tập đoàn &amp; Doanh nghiệp Lớn (Sản xuất, Thương mại Quy mô &amp; Kiểm nghiệm)</h3>
+          </div>
+          <div class="client-grid">
+            <!-- 1.1 Thương Nghiệp Cà Mau -->
+            <div class="client-card">
+              <div class="client-head">
+                <h4 class="client-name">CÔNG TY CP THƯƠNG NGHIỆP CÀ MAU</h4>
+                <span class="client-role-tag">ERP Tổng thể &amp; API</span>
+              </div>
+              <p class="client-field">
+                <strong data-i18n="client.fieldLabel">Ngành nghề:</strong> <span data-i18n="c1.field">Thương mại tổng hợp, phân phối hàng tiêu dùng, lương thực, thực phẩm và quản lý hệ thống bán lẻ đa chi nhánh.</span>
+              </p>
+              <div class="client-impl">
+                <strong data-i18n="client.roleLabel">Vai trò/Phân hệ:</strong> <span data-i18n="c1.role">Tech Lead hệ thống ERP tổng thể &amp; Tích hợp API — Lead team lập trình triển khai hệ thống Arito ERP toàn diện, thiết kế giải pháp kết nối API đồng bộ dữ liệu và tự động hóa quy trình lấy đơn hàng phục vụ chuỗi phân phối bán lẻ quy mô lớn.</span>
+              </div>
+            </div>
+
+            <!-- 1.2 Ngọc Nghĩa -->
+            <div class="client-card">
+              <div class="client-head">
+                <h4 class="client-name">CTCP CÔNG NGHIỆP - DỊCH VỤ - THƯƠNG MẠI NGỌC NGHĨA</h4>
+                <span class="client-role-tag">ERP Sản xuất</span>
+              </div>
+              <p class="client-field">
+                <strong data-i18n="client.fieldLabel">Ngành nghề:</strong> <span data-i18n="c2.field">Sản xuất bao bì nhựa, chai lọ nhựa công nghiệp và các sản phẩm cơ khí, dịch vụ hỗ trợ sản xuất.</span>
+              </p>
+              <div class="client-impl">
+                <strong data-i18n="client.roleLabel">Vai trò/Phân hệ:</strong> <span data-i18n="c2.role">Tech Lead hệ thống ERP tổng thể — Lead team lập trình triển khai và tối ưu hóa hệ thống Arito ERP toàn diện cho nhà máy sản xuất bao bì nhựa và cơ khí quy mô lớn.</span>
+              </div>
+            </div>
+
+            <!-- 1.3 THK Manufacturing -->
+            <div class="client-card">
+              <div class="client-head">
+                <h4 class="client-name">CÔNG TY TNHH THK MANUFACTURING OF VIỆT NAM</h4>
+                <span class="client-role-tag">HRM Doanh nghiệp FDI</span>
+              </div>
+              <p class="client-field">
+                <strong data-i18n="client.fieldLabel">Ngành nghề:</strong> <span data-i18n="c3.field">Sản xuất linh kiện điện tử, cơ khí chính xác và thiết bị phụ trợ công nghiệp.</span>
+              </p>
+              <div class="client-impl">
+                <strong data-i18n="client.roleLabel">Vai trò/Phân hệ:</strong> <span data-i18n="c3.role">Tech Lead phân hệ HRM (Nhân sự) — Lead team lập trình giải quyết bài toán quản trị nhân sự quy mô lớn, chấm công, tính lương và tự động hóa quy trình quản trị nguồn nhân lực theo chuẩn doanh nghiệp sản xuất FDI.</span>
+              </div>
+            </div>
+
+            <!-- 1.4 Global Star -->
+            <div class="client-card">
+              <div class="client-head">
+                <h4 class="client-name">CÔNG TY TNHH CÔNG NGHỆ GLOBAL STAR VIỆT NAM</h4>
+                <span class="client-role-tag">HRM Quản trị Nhân lực</span>
+              </div>
+              <p class="client-field">
+                <strong data-i18n="client.fieldLabel">Ngành nghề:</strong> <span data-i18n="c4.field">Sản xuất, gia công các sản phẩm công nghiệp và linh kiện kỹ thuật cao.</span>
+              </p>
+              <div class="client-impl">
+                <strong data-i18n="client.roleLabel">Vai trò/Phân hệ:</strong> <span data-i18n="c4.role">Tech Lead phân hệ HRM (Nhân sự) — Lead giải pháp kỹ thuật và phát triển module quản lý nhân sự, chấm công, tính lương tích hợp trong hệ thống vận hành doanh nghiệp.</span>
+              </div>
+            </div>
+
+            <!-- 1.5 Tentamus -->
+            <div class="client-card" style="grid-column: 1 / -1;">
+              <div class="client-head">
+                <h4 class="client-name">CÔNG TY TNHH TENTAMUS VIỆT NAM</h4>
+                <span class="client-role-tag">Đa Phân Hệ (LIMS, E-Sourcing, HRM, ERP)</span>
+              </div>
+              <p class="client-field">
+                <strong data-i18n="client.fieldLabel">Ngành nghề:</strong> <span data-i18n="c5.field">Dịch vụ kiểm nghiệm, phân tích chất lượng sản phẩm (thực phẩm, nông sản, dược phẩm) và tư vấn kỹ thuật.</span>
+              </p>
+              <div class="client-impl">
+                <strong data-i18n="client.roleLabel">Vai trò/Phân hệ:</strong> <span data-i18n="c5.role">Tech Lead đa phân hệ (HRM, ERP, E-sourcing, LIMS &amp; Bản đồ chất lượng) — Lead team lập trình triển khai và tích hợp đồng bộ các phân hệ quản trị tổng thể doanh nghiệp, hệ thống quản lý nguồn nhân lực (HRM), cổng thông tin mua sắm điện tử (E-sourcing) và hệ thống chuyên ngành kiểm nghiệm (LIMS, Bản đồ chất lượng).</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doanh nghiệp Sản xuất & Công nghiệp -->
+        <div class="project-group">
+          <div class="group-header">
+            <h3 class="group-title" data-i18n="grp2.title">Khối Doanh nghiệp Sản xuất &amp; Công nghiệp</h3>
+          </div>
+          <div class="client-grid">
+            <!-- 2.1 Panel Plus -->
+            <div class="client-card">
+              <div class="client-head">
+                <h4 class="client-name">CÔNG TY TNHH PANEL PLUS VIỆT NAM</h4>
+                <span class="client-role-tag">ERP Sản xuất Gỗ</span>
+              </div>
+              <p class="client-field">
+                <strong data-i18n="client.fieldLabel">Ngành nghề:</strong> <span data-i18n="c6.field">Sản xuất và phân phối gỗ công nghiệp, ván ép nhân tạo cao cấp phục vụ ngành nội thất và xây dựng.</span>
+              </p>
+              <div class="client-impl">
+                <strong data-i18n="client.roleLabel">Vai trò/Phân hệ:</strong> <span data-i18n="c6.role">Tech Lead giải pháp ERP — Tùy biến phân hệ kế toán, quản lý định mức nguyên vật liệu (BOM), điều độ sản xuất và chuỗi cung ứng cho nhà máy gỗ công nghiệp.</span>
+              </div>
+            </div>
+
+            <!-- 2.2 Kim Hồng Lợi -->
+            <div class="client-card">
+              <div class="client-head">
+                <h4 class="client-name">CÔNG TY TNHH SX TM KIM HỒNG LỢI</h4>
+                <span class="client-role-tag">ERP Cơ khí &amp; Vật liệu</span>
+              </div>
+              <p class="client-field">
+                <strong data-i18n="client.fieldLabel">Ngành nghề:</strong> <span data-i18n="c7.field">Sản xuất, gia công cơ khí và thương mại vật liệu xây dựng, cấu kiện kim loại.</span>
+              </p>
+              <div class="client-impl">
+                <strong data-i18n="client.roleLabel">Vai trò/Phân hệ:</strong> <span data-i18n="c7.role">Tech Lead giải pháp ERP — Triển khai quản lý tồn kho kim loại, theo dõi đơn hàng gia công cơ khí, hạch toán chi phí giá thành và kế toán tài chính.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doanh nghiệp Thương mại, Dịch vụ & Năng lượng -->
+        <div class="project-group">
+          <div class="group-header">
+            <h3 class="group-title" data-i18n="grp3.title">Khối Doanh nghiệp Thương mại, Dịch vụ &amp; Năng lượng</h3>
+          </div>
+          <div class="client-grid">
+            <!-- 3.1 GreenYellow Việt Nam -->
+            <div class="client-card">
+              <div class="client-head">
+                <h4 class="client-name">CÔNG TY TNHH GREENYELLOW VIỆT NAM</h4>
+                <span class="client-role-tag">Procurement &amp; Chuỗi cung ứng</span>
+              </div>
+              <p class="client-field">
+                <strong data-i18n="client.fieldLabel">Ngành nghề:</strong> <span data-i18n="c8.field">Cung cấp giải pháp năng lượng mặt trời, quản lý dự án năng lượng tái tạo và dịch vụ tiết kiệm năng lượng.</span>
+              </p>
+              <div class="client-impl">
+                <strong data-i18n="client.roleLabel">Vai trò/Phân hệ:</strong> <span data-i18n="c8.role">Tech Lead giải pháp Mua hàng (Procurement) — Lead team lập trình và thiết kế giải pháp tự động hóa quy trình mua sắm, quản lý chuỗi cung ứng và kiểm soát thầu/vật tư dự án năng lượng.</span>
+              </div>
+            </div>
+
+            <!-- 3.2 Đầu Tư Quốc Tế Nam An -->
+            <div class="client-card">
+              <div class="client-head">
+                <h4 class="client-name">CÔNG TY CỔ PHẦN ĐẦU TƯ QUỐC TẾ NAM AN</h4>
+                <span class="client-role-tag">ERP F&amp;B Chuỗi Nhà Hàng</span>
+              </div>
+              <p class="client-field">
+                <strong data-i18n="client.fieldLabel">Ngành nghề:</strong> <span data-i18n="c9.field">Kinh doanh dịch vụ ẩm thực (F&amp;B), chuỗi nhà hàng cao cấp và đầu tư thương mại dịch vụ.</span>
+              </p>
+              <div class="client-impl">
+                <strong data-i18n="client.roleLabel">Vai trò/Phân hệ:</strong> <span data-i18n="c9.role">Tech Lead giải pháp ERP F&amp;B — Thiết kế giải pháp quản lý chi phí chuỗi nhà hàng, kết nối dữ liệu bán hàng POS và quản lý kho định lượng ẩm thực.</span>
+              </div>
+            </div>
+
+            <!-- 3.3 Nhôm Inox Gia An -->
+            <div class="client-card">
+              <div class="client-head">
+                <h4 class="client-name">CÔNG TY TNHH NHÔM - INOX GIA AN</h4>
+                <span class="client-role-tag">ERP Phân phối Kim loại</span>
+              </div>
+              <p class="client-field">
+                <strong data-i18n="client.fieldLabel">Ngành nghề:</strong> <span data-i18n="c10.field">Sản xuất, kinh doanh và phân phối các sản phẩm nhôm, inox, vật liệu kim loại dân dụng và công nghiệp.</span>
+              </p>
+              <div class="client-impl">
+                <strong data-i18n="client.roleLabel">Vai trò/Phân hệ:</strong> <span data-i18n="c10.role">Tech Lead giải pháp ERP — Quản lý phân phối vật liệu kim loại, chính sách giá bán sỉ/lẻ, quản lý công nợ và kế toán kho.</span>
+              </div>
+            </div>
+
+            <!-- 3.4 NLINK Việt Nam -->
+            <div class="client-card">
+              <div class="client-head">
+                <h4 class="client-name">CÔNG TY TNHH NLINK VIỆT NAM</h4>
+                <span class="client-role-tag">ERP Thương mại &amp; Dịch vụ</span>
+              </div>
+              <p class="client-field">
+                <strong data-i18n="client.fieldLabel">Ngành nghề:</strong> <span data-i18n="c11.field">Thương mại dịch vụ cao cấp, phân phối sản phẩm và giải pháp công nghệ thương mại.</span>
+              </p>
+              <div class="client-impl">
+                <strong data-i18n="client.roleLabel">Vai trò/Phân hệ:</strong> <span data-i18n="c11.role">Tech Lead giải pháp ERP — Tích hợp quản lý đơn hàng thương mại, tự động hóa quy trình bán hàng và quản trị tài chính kế toán.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Giải trí, F&B & Chuyên ngành Đặc thù -->
+        <div class="project-group">
+          <div class="group-header">
+            <h3 class="group-title" data-i18n="grp4.title">Khối Giải trí, F&amp;B &amp; Chuyên ngành Đặc thù</h3>
+          </div>
+          <div class="client-grid">
+            <div class="client-card" style="grid-column: 1 / -1;">
+              <div class="client-head">
+                <h4 class="client-name">CÔNG TY CỔ PHẦN LUNE PRODUCTION</h4>
+                <span class="client-role-tag">ERP Nghệ thuật &amp; Sự kiện</span>
+              </div>
+              <p class="client-field">
+                <strong data-i18n="client.fieldLabel">Ngành nghề:</strong> <span data-i18n="c12.field">Hoạt động nghệ thuật biểu diễn, tổ chức sự kiện văn hóa, giải trí và sản xuất chương trình nghệ thuật.</span>
+              </p>
+              <div class="client-impl">
+                <strong data-i18n="client.roleLabel">Vai trò/Phân hệ:</strong> <span data-i18n="c12.role">Tech Lead giải pháp ERP Đặc thù — Xây dựng giải pháp quản lý tài chính dự án nghệ thuật, theo dõi doanh thu vé biểu diễn và quản lý chi phí sản xuất sự kiện văn hóa.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Các Extension Tự Phát Triển -->
+    <section class="section" id="extensions">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-badge" data-i18n="ext.badge">Giải quyết bài toán thực tế</span>
+          <h2 class="section-title" data-i18n="ext.title">Các Extension &amp; Tiện Ích Tự Phát Triển</h2>
+          <p class="section-desc" data-i18n="ext.subtitle">Xuất phát từ chính những khó khăn hàng ngày khi lập trình ERP và thao tác trên SQL Server.</p>
+        </div>
+
+        <div class="tools-grid">
+          <!-- Extension 1: Lumi SQL Formatter -->
+          <div class="tool-card">
+            <div>
+              <div class="tool-badge-row">
+                <span class="tool-type">SSMS EXTENSION</span>
+                <span class="tool-target">SSMS 18 | 19 | 20 | 22+</span>
+              </div>
+              <h3 class="tool-title">Lumi SQL Formatter &amp; Smart Snippets</h3>
+              
+              <div class="tool-problem">
+                <strong data-i18n="tool1.probTitle">Bài toán thực tế:</strong>
+                <span data-i18n="tool1.prob">Viết lệnh T-SQL trong SSMS phải bấm hoa thường thủ công, code dài khó đọc; các công cụ thương mại bên ngoài thì nặng nề hoặc tốn phí bản quyền.</span>
+              </div>
+
+              <ul class="tool-features">
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span data-i18n="tool1.f1">Tự động viết HOA hơn 510 từ khóa, hàm và kiểu dữ liệu T-SQL ngay khi bấm Space, Enter, Tab.</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span data-i18n="tool1.f2">Sử dụng Lexer phân tích cú pháp chuẩn của Microsoft ScriptDom: Tuyệt đối không làm đổi chữ trong chuỗi string ('...'), chú thích comment, hoặc tên bảng trong ngoặc vuông ([...]).</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span data-i18n="tool1.f3">Bung Snippet tức thì (viết `ssf` -> bung thành `SELECT * FROM $CURSOR$` đặt sẵn con trỏ), tạo nhanh snippet bằng phím tắt `Ctrl+Alt+S`.</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span data-i18n="tool1.f4">Tích hợp thẳng vào Tools -> Options của SSMS, hỗ trợ giao diện Dark/Light.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="tool-tags">
+              <span class="tag-badge">C#</span>
+              <span class="tag-badge">VSIX</span>
+              <span class="tag-badge">SSMS Isolated Shell</span>
+              <span class="tag-badge">ScriptDom</span>
+              <span class="tag-badge">T-SQL Productivity</span>
+            </div>
+          </div>
+
+          <!-- Extension 2: LumiIntellisense -->
+          <div class="tool-card">
+            <div>
+              <div class="tool-badge-row">
+                <span class="tool-type">VISUAL STUDIO VSIX</span>
+                <span class="tool-target">VS 2017 | 2019 | 2022</span>
+              </div>
+              <h3 class="tool-title">LumiIntellisense (XML Metadata ERP)</h3>
+              
+              <div class="tool-problem">
+                <strong data-i18n="tool2.probTitle">Bài toán thực tế:</strong>
+                <span data-i18n="tool2.prob">Hệ thống ERP (Arito, Fast) nhúng code JavaScript trong thẻ &lt;js&gt; của file XML. Visual Studio chỉ hiểu đây là XML thuần nên không hề có gợi ý cú pháp, lập trình viên phải nhớ chay toàn bộ tên hàm.</span>
+              </div>
+
+              <ul class="tool-features">
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span data-i18n="tool2.f1">Tự động bắt sự kiện gõ trong khối thẻ &lt;js&gt;&lt;![CDATA[ ... ]]&gt;&lt;/js&gt; để bật bảng autocomplete IntelliSense.</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span data-i18n="tool2.f2">Tự động phân tích các tệp kịch bản trong hệ thống để nạp danh sách các hàm vòng đời và xử lý nghiệp vụ của ERP.</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span data-i18n="tool2.f3">Hỗ trợ gợi ý cú pháp đầy đủ cho các phương thức thao tác Form, Grid dữ liệu và bộ hàm tiện ích dùng chung của hệ thống ERP.</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span data-i18n="tool2.f4">Chạy 100% trong bộ nhớ RAM, tự cập nhật khi file JS thay đổi (Hot-Reload) mà không làm lag Visual Studio.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="tool-tags">
+              <span class="tag-badge">C#</span>
+              <span class="tag-badge">VSSDK</span>
+              <span class="tag-badge">MEF</span>
+              <span class="tag-badge">XML Editor Hook</span>
+              <span class="tag-badge">ERP Metadata</span>
+            </div>
+          </div>
+
+          <!-- Tiện ích 3: Arito Studio & Profiler -->
+          <div class="tool-card">
+            <div>
+              <div class="tool-badge-row">
+                <span class="tool-type">ERP ECOSYSTEM TOOLS</span>
+                <span class="tool-target">Arito ERP</span>
+              </div>
+              <h3 class="tool-title">Arito Studio &amp; AritoProfiler</h3>
+              
+              <div class="tool-problem">
+                <strong data-i18n="tool3.probTitle">Bài toán thực tế:</strong>
+                <span data-i18n="tool3.prob">Cần môi trường để cấu hình nhanh các màn hình chức năng ERP, đồng thời theo dõi đo lường xem procedure nào chạy chậm trong quá trình vận hành hệ thống.</span>
+              </div>
+
+              <ul class="tool-features">
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span data-i18n="tool3.f1">Bộ công cụ hỗ trợ cấu hình dữ liệu, kết nối và kiểm tra tính hợp lệ của cấu trúc XML schema.</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span data-i18n="tool3.f2">Theo dõi thời gian thực thi của các tác vụ ERP để phát hiện sớm các câu truy vấn gây nghẽn database.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="tool-tags">
+              <span class="tag-badge">.NET</span>
+              <span class="tag-badge">SQL Server</span>
+              <span class="tag-badge">Metadata Schema</span>
+              <span class="tag-badge">Performance Profiling</span>
+            </div>
+          </div>
+
+          <!-- Tiện ích 4: ShortcutCenter & LumiConverter -->
+          <div class="tool-card">
+            <div>
+              <div class="tool-badge-row">
+                <span class="tool-type">DESKTOP &amp; UTILITIES</span>
+                <span class="tool-target">Windows 10/11</span>
+              </div>
+              <h3 class="tool-title">ShortcutCenter &amp; LumiConverter</h3>
+              
+              <div class="tool-problem">
+                <strong data-i18n="tool4.probTitle">Bài toán thực tế:</strong>
+                <span data-i18n="tool4.prob">Cần mở nhanh các thư mục dự án, server test, tài liệu hướng dẫn và chuyển đổi nhanh báo cáo kế toán (Office &lt;-&gt; PDF) mà không làm rò rỉ tiến trình ngầm.</span>
+              </div>
+
+              <ul class="tool-features">
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span data-i18n="tool4.f1">ShortcutCenter (WPF): Quản lý phím tắt toàn hệ thống, bật nhanh tài liệu và môi trường lập trình chỉ bằng 1 tổ hợp phím.</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span data-i18n="tool4.f2">LumiConverter (Python): Chuyển đổi báo cáo Word, Excel, PowerPoint sang PDF và bóc tách bảng PDF sang Excel, tự động tắt triệt để tiến trình Excel/Word ngầm.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="tool-tags">
+              <span class="tag-badge">WPF</span>
+              <span class="tag-badge">Python COM</span>
+              <span class="tag-badge">Office Automation</span>
+              <span class="tag-badge">Daily Utility</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hành trình phát triển (Timeline: Trường học -> Fast ERP -> Arito ERP) -->
+    <section class="section" id="timeline">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-badge" data-i18n="timeline.badge">Hành trình sự nghiệp</span>
+          <h2 class="section-title" data-i18n="timeline.title">Quá Trình Phát Triển &amp; Kinh Nghiệm</h2>
+          <p class="section-desc" data-i18n="timeline.subtitle">Từ nền tảng học thuật tại trường đại học đến trải nghiệm chuyên sâu tại Fast ERP và vai trò Tech Lead tại Arito ERP.</p>
+        </div>
+
+        <div class="timeline">
+          <!-- Giai đoạn 3: Tech Lead tại Arito ERP (2019 — Hiện tại) -->
+          <div class="timeline-item stage-arito">
+            <div class="timeline-dot">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-top">
+                <div class="timeline-role" data-i18n="timeline.r3">Tech Lead tại Arito Solutions (Arito ERP)</div>
+                <div class="timeline-meta">
+                  <span class="timeline-badge" data-i18n="timeline.b3">HIỆN TẠI</span>
+                  <span class="timeline-period">2019 — HIỆN TẠI</span>
+                </div>
+              </div>
+              <div class="timeline-company" data-i18n="timeline.c3">Công ty Cổ phần Giải pháp ERP Arito (Arito Solutions)</div>
+              
+              <div class="timeline-tags">
+                <span class="timeline-tag">Tech Lead</span>
+                <span class="timeline-tag">Arito ERP</span>
+                <span class="timeline-tag">SQL Server</span>
+                <span class="timeline-tag">Dev Tools Extension</span>
+              </div>
+
+              <ul class="timeline-bullets">
+                <li data-i18n="timeline.d3_1">Đóng vai trò là cầu nối kỹ thuật huyết mạch giữa các phòng ban nghiệp vụ/khách hàng và đội ngũ phát triển phần mềm (Development Team).</li>
+                <li data-i18n="timeline.d3_2">Trực tiếp tiếp nhận yêu cầu nghiệp vụ cốt lõi, phân tích mức độ đáp ứng của hệ thống Arito ERP và định hướng giải pháp kỹ thuật, thiết kế kiến trúc hệ thống.</li>
+                <li data-i18n="timeline.d3_3">Lead team lập trình hiện thực hóa các bài toán vận hành phức tạp của doanh nghiệp (từ quản trị hệ thống ERP tổng thể, chuỗi cung ứng, hệ thống mua hàng/Procurement, tích hợp API kết nối đơn hàng, tài chính kế toán đến các phân hệ chuyên sâu như HRM, E-sourcing, LIMS...) thành các tính năng/module phần mềm tối ưu.</li>
+                <li data-i18n="timeline.d3_4">Trực tiếp nghiên cứu và phát triển các tiện ích mở rộng nội bộ (Lumi SQL Formatter cho SSMS, LumiIntellisense cho Visual Studio) giúp nâng cao năng suất viết code và giảm thiểu tối đa sai sót cú pháp cho toàn bộ đội ngũ kỹ thuật.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Giai đoạn 2: Lập trình viên Fast ERP (2017 — 2019) -->
+          <div class="timeline-item stage-fast">
+            <div class="timeline-dot">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-top">
+                <div class="timeline-role" data-i18n="timeline.r2">Lập trình viên ERP &amp; Cơ sở dữ liệu SQL Server</div>
+                <div class="timeline-meta">
+                  <span class="timeline-badge" data-i18n="timeline.b2">CHUYÊN SÂU ERP</span>
+                  <span class="timeline-period">2017 — 2019</span>
+                </div>
+              </div>
+              <div class="timeline-company" data-i18n="timeline.c2">Công ty Cổ phần Phần mềm FAST (FAST ERP)</div>
+              
+              <div class="timeline-tags">
+                <span class="timeline-tag">Fast Accounting</span>
+                <span class="timeline-tag">Fast Business Online</span>
+                <span class="timeline-tag">XML Metadata</span>
+                <span class="timeline-tag">Xử lý sự kiện giao diện</span>
+                <span class="timeline-tag">T-SQL Stored Procedures</span>
+                <span class="timeline-tag">Kế toán doanh nghiệp</span>
+              </div>
+
+              <ul class="timeline-bullets">
+                <li data-i18n="timeline.d2_1">Nắm vững và làm chủ cấu trúc XML Metadata quy chuẩn của hệ thống FAST ERP: định nghĩa danh mục, thiết kế màn hình nhập liệu chứng từ, cấu hình trường dữ liệu, validation và phân quyền người dùng.</li>
+                <li data-i18n="timeline.d2_2">Lập trình kịch bản xử lý sự kiện giao diện, kiểm tra ràng buộc hợp lệ của dữ liệu, tự động tính toán thuế, chiết khấu và tổng tiền trên lưới chứng từ.</li>
+                <li data-i18n="timeline.d2_3">Chuyên sâu Microsoft SQL Server: Viết các Stored Procedure, Function tính toán số liệu sổ sách kế toán, lập báo cáo tài chính, bảng cân đối phát sinh, sổ cái, báo cáo công nợ và sổ kho.</li>
+                <li data-i18n="timeline.d2_4">Rèn luyện kinh nghiệm thực chiến vững chắc về chuẩn mực kế toán tài chính Việt Nam và các bài toán luân chuyển chứng từ trong doanh nghiệp thương mại, sản xuất.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Giai đoạn 1: Quá trình học tập tại ĐH Khoa học Tự nhiên TP.HCM (2013 — 2017) -->
+          <div class="timeline-item stage-edu">
+            <div class="timeline-dot">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+              </svg>
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-top">
+                <div class="timeline-role" data-i18n="timeline.r1">Trường Đại học Khoa học Tự nhiên - ĐHQG TP.HCM</div>
+                <div class="timeline-meta">
+                  <span class="timeline-badge" data-i18n="timeline.b1">NỀN TẢNG KỸ THUẬT</span>
+                  <span class="timeline-period">2013 — 2017</span>
+                </div>
+              </div>
+              <div class="timeline-company" data-i18n="timeline.c1">Chuyên ngành Hệ thống Thông tin</div>
+              
+              <div class="timeline-tags">
+                <span class="timeline-tag">ĐH Khoa học Tự nhiên TP.HCM (HCMUS)</span>
+                <span class="timeline-tag">Hệ thống Thông tin</span>
+                <span class="timeline-tag">Cơ sở dữ liệu quan hệ (RDBMS)</span>
+                <span class="timeline-tag">Cấu trúc dữ liệu &amp; Giải thuật</span>
+                <span class="timeline-tag">Lập trình .NET / C#</span>
+              </div>
+
+              <ul class="timeline-bullets">
+                <li data-i18n="timeline.d1_1">Tiếp thu nền tảng vững chắc về Cấu trúc dữ liệu &amp; Giải thuật, Lý thuyết Cơ sở dữ liệu quan hệ (RDBMS), Đại số quan hệ và Hệ quản trị SQL Server.</li>
+                <li data-i18n="timeline.d1_2">Nghiên cứu sâu về phân tích thiết kế hệ thống thông tin: mô hình hóa quy trình nghiệp vụ doanh nghiệp, chuẩn hóa cơ sở dữ liệu và thiết kế kiến trúc phần mềm.</li>
+                <li data-i18n="timeline.d1_3">Đặt nền móng tư duy logic chặt chẽ, rèn luyện kỹ năng lập trình hướng đối tượng (.NET / C#) và định hình mục tiêu chuyên sâu vào lĩnh vực phần mềm quản trị doanh nghiệp (ERP).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Liên hệ -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact-card">
+          <div>
+            <h3 data-i18n="contact.title">Liên Hệ &amp; Trao Đổi Công Việc</h3>
+            <p data-i18n="contact.desc">
+              Nếu bạn đang tìm kiếm Tech Lead chuyên sâu về <strong>SQL Server</strong>, <strong>Arito ERP</strong>, <strong>Fast ERP</strong> hoặc có nhu cầu trao đổi về các giải pháp kiến trúc hệ thống doanh nghiệp, vui lòng liên hệ:
+            </p>
+
+            <div class="contact-links">
+              <div class="contact-row" style="cursor: pointer;" onclick="copyEmail()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+                <span style="flex: 1;">nguyenthanhphong0713@gmail.com</span>
+                <span style="font-size: 0.8rem; color: var(--primary);" data-i18n="contact.copy">Sao chép</span>
+              </div>
+
+              <a href="https://github.com/nguyenthanhphong0713" target="_blank" rel="noopener noreferrer" class="contact-row">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+                <span style="flex: 1;">github.com/nguyenthanhphong0713</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                </svg>
+              </a>
+
+              <a href="https://www.linkedin.com/in/ntp1307" target="_blank" rel="noopener noreferrer" class="contact-row">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.66 1.66 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.66-1.66 1.66 1.66 0 0 0-1.66-1.66Z"/>
+                </svg>
+                <span style="flex: 1;">linkedin.com/in/ntp1307</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-card); padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <h4 style="margin-bottom: 8px;" data-i18n="contact.quickTitle">Gửi email trực tiếp</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;" data-i18n="contact.quickDesc">Bấm nút bên dưới để mở ứng dụng email của bạn và gửi thư trực tiếp cho tôi.</p>
+            <a href="mailto:nguyenthanhphong0713@gmail.com?subject=Lien%20he%20cong%20viec%20qua%20Landing%20Page" class="btn btn-primary" style="width: 100%; justify-content: center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+              <span data-i18n="contact.mailBtn">Mở Email &amp; Gửi Tin Nhắn</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+      <div>
+        © 2026 <strong>Nguyễn Thanh Phong</strong> • Tech Lead @ Arito Solutions
+      </div>
+      <div style="display: flex; gap: 16px; font-size: 0.85rem;">
+        <a href="https://github.com/nguyenthanhphong0713" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 6px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+        <span>•</span>
+        <a href="https://www.linkedin.com/in/ntp1307" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 6px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.66 1.66 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.66-1.66 1.66 1.66 0 0 0-1.66-1.66Z"/>
+          </svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">Đã sao chép email vào bộ nhớ tạm!</div>
+
+  <script>
+    // Song ngữ thực tiễn, chi tiết và đầy đủ cho Tech Lead & Dự án Arito
+    const i18n = {
+      vi: {
+        "logo.title": "Tech Lead @ Arito Solutions",
+        "nav.focus": "Chuyên môn",
+        "nav.projects": "Dự án Tech Lead",
+        "nav.extensions": "Extension hỗ trợ",
+        "nav.timeline": "Hành trình phát triển",
+        "nav.experience": "Kinh nghiệm thực tiễn",
+        "nav.contact": "Liên hệ",
+        
+        "hero.tag": "Tech Lead • Arito Solutions • SQL Server • ERP",
+        "hero.headline": "Tech Lead Giải Pháp ERP & Cơ Sở Dữ Liệu SQL Server",
+        "hero.desc": "Tôi là <strong>Nguyễn Thanh Phong</strong>, hiện đảm nhiệm vị trí <strong>Tech Lead tại Arito Solutions</strong>. Đóng vai trò cầu nối kỹ thuật cốt lõi giữa bài toán nghiệp vụ doanh nghiệp và Development Team; định hướng giải pháp, thiết kế kiến trúc hệ thống và lead team phát triển triển khai thành công các dự án ERP toàn diện cho các tập đoàn sản xuất, chuỗi thương mại bán lẻ quy mô lớn, FDI và năng lượng.",
+        "hero.btnProjects": "Dự án tham gia",
+        "hero.btnContact": "Thông tin liên hệ",
+
+        "card.sql.title": "Cơ sở dữ liệu SQL Server",
+        "card.sql.desc": "Thiết kế schema dữ liệu lớn, viết Stored Procedure tính toán phức tạp, kiểm soát toàn vẹn dữ liệu và tối ưu hóa truy vấn.",
+        "card.erp.title": "Kiến Trúc ERP & Đa Phân Hệ",
+        "card.erp.desc": "Quản trị ERP tổng thể, Chuỗi cung ứng, Mua hàng/Procurement, Tích hợp API, HRM, E-sourcing, LIMS chuyên sâu.",
+        "card.tool.title": "Tự Phát Triển Tool Nội Bộ",
+        "card.tool.desc": "Xây dựng extension cho SSMS và Visual Studio giúp dev team format T-SQL và autocomplete mã kịch bản ERP.",
+
+        "stat.s1": "Dự án doanh nghiệp lớn & tập đoàn trực tiếp Tech Lead",
+        "stat.s2": "Phát triển các tool phục vụ nội bộ",
+        "stat.s3": "Tập trung bài toán thực tế của ERP & tối ưu hóa hiệu năng",
+
+        "focus.badge": "Năng lực thực tế",
+        "focus.title": "3 Trọng Tâm Chuyên Môn Cốt Lõi",
+        "focus.subtitle": "Kinh nghiệm thực tiễn đúc kết từ vai trò Tech Lead và kiến trúc hệ thống ERP doanh nghiệp.",
+
+        "pillar1.title": "Microsoft SQL Server",
+        "pillar1.i1": "Viết Stored Procedure, Function tính toán số liệu sổ sách kế toán, công nợ, xuất nhập tồn.",
+        "pillar1.i2": "Tối ưu hóa câu lệnh query chậm, xem xét Execution Plan, đánh Index bảng chứng từ lớn.",
+        "pillar1.i3": "Kiểm soát tính toàn vẹn dữ liệu qua Stored Procedure & nghiệp vụ: khóa sổ kế toán, kiểm tra tồn kho âm, kiểm soát điều kiện ghi sổ.",
+        "pillar1.i4": "Bảo trì cơ sở dữ liệu: sao lưu (backup), phục hồi (restore), kiểm tra phân mảnh bảng.",
+
+        "pillar2.title": "Arito ERP & Fast ERP",
+        "pillar2.i1": "Thành thạo cấu trúc XML Metadata (định nghĩa danh mục, màn hình chứng từ, trường dữ liệu, validation).",
+        "pillar2.i2": "Lập trình kịch bản xử lý sự kiện giao diện, kiểm soát tính hợp lệ của dữ liệu nhập liệu trên màn hình và tính toán tự động số liệu chứng từ.",
+        "pillar2.i3": "Lập trình báo cáo quản trị, bảng cân đối số phát sinh, sổ cái, báo cáo bán hàng, báo cáo công nợ.",
+        "pillar2.i4": "Chỉnh sửa logic tính toán và quy trình duyệt chứng từ theo từng bài toán đặc thù của doanh nghiệp.",
+
+        "pillar3.title": "Tự Xây Dựng Extension",
+        "pillar3.i1": "Tự phát triển Extension cho SSMS & Visual Studio bằng C# (.NET / VSSDK) để giải quyết các điểm nghẽn năng suất.",
+        "pillar3.i2": "Viết các script tự động hóa bằng Python/PowerShell phục vụ trích xuất, chuyển đổi dữ liệu kế toán và tài liệu.",
+        "pillar3.i3": "Không chỉ dừng ở việc dùng công cụ có sẵn mà chủ động code thêm công cụ để công việc chạy nhanh và chuẩn hơn.",
+
+        "arito.badge": "Hồ sơ năng lực thực tế",
+        "arito.title": "Dự Án Tech Lead Chính Tại Arito Solutions",
+        "arito.subtitle": "Các dự án doanh nghiệp lớn trực tiếp tiếp nhận yêu cầu cốt lõi, thiết kế giải pháp kỹ thuật và lead development team triển khai.",
+        "client.fieldLabel": "Ngành nghề:",
+        "client.roleLabel": "Vai trò/Phân hệ:",
+
+        "grp1.title": "Khối Tập đoàn & Doanh nghiệp Lớn (Sản xuất, Thương mại Quy mô & Kiểm nghiệm)",
+        "c1.field": "Thương mại tổng hợp, phân phối hàng tiêu dùng, lương thực, thực phẩm và quản lý hệ thống bán lẻ đa chi nhánh.",
+        "c1.role": "Tech Lead hệ thống ERP tổng thể & Tích hợp API — Lead team lập trình triển khai hệ thống Arito ERP toàn diện, thiết kế giải pháp kết nối API đồng bộ dữ liệu và tự động hóa quy trình lấy đơn hàng phục vụ chuỗi phân phối bán lẻ quy mô lớn.",
+        
+        "c2.field": "Sản xuất bao bì nhựa, chai lọ nhựa công nghiệp và các sản phẩm cơ khí, dịch vụ hỗ trợ sản xuất.",
+        "c2.role": "Tech Lead hệ thống ERP tổng thể — Lead team lập trình triển khai và tối ưu hóa hệ thống Arito ERP toàn diện cho nhà máy sản xuất bao bì nhựa và cơ khí quy mô lớn.",
+
+        "c3.field": "Sản xuất linh kiện điện tử, cơ khí chính xác và thiết bị phụ trợ công nghiệp.",
+        "c3.role": "Tech Lead phân hệ HRM (Nhân sự) — Lead team lập trình giải quyết bài toán quản trị nhân sự quy mô lớn, chấm công, tính lương và tự động hóa quy trình quản trị nguồn nhân lực theo chuẩn doanh nghiệp sản xuất FDI.",
+
+        "c4.field": "Sản xuất, gia công các sản phẩm công nghiệp và linh kiện kỹ thuật cao.",
+        "c4.role": "Tech Lead phân hệ HRM (Nhân sự) — Lead giải pháp kỹ thuật và phát triển module quản lý nhân sự, chấm công, tính lương tích hợp trong hệ thống vận hành doanh nghiệp.",
+
+        "c5.field": "Dịch vụ kiểm nghiệm, phân tích chất lượng sản phẩm (thực phẩm, nông sản, dược phẩm) và tư vấn kỹ thuật.",
+        "c5.role": "Tech Lead đa phân hệ (HRM, ERP, E-sourcing, LIMS & Bản đồ chất lượng) — Lead team lập trình triển khai và tích hợp đồng bộ các phân hệ quản trị tổng thể doanh nghiệp, hệ thống quản lý nguồn nhân lực (HRM), cổng thông tin mua sắm điện tử (E-sourcing) và hệ thống chuyên ngành kiểm nghiệm (LIMS, Bản đồ chất lượng).",
+
+        "grp2.title": "Khối Doanh nghiệp Sản xuất & Công nghiệp",
+        "c6.field": "Sản xuất và phân phối gỗ công nghiệp, ván ép nhân tạo cao cấp phục vụ ngành nội thất và xây dựng.",
+        "c6.role": "Tech Lead giải pháp ERP — Tùy biến phân hệ kế toán, quản lý định mức nguyên vật liệu (BOM), điều độ sản xuất và chuỗi cung ứng cho nhà máy gỗ công nghiệp.",
+
+        "c7.field": "Sản xuất, gia công cơ khí và thương mại vật liệu xây dựng, cấu kiện kim loại.",
+        "c7.role": "Tech Lead giải pháp ERP — Triển khai quản lý tồn kho kim loại, theo dõi đơn hàng gia công cơ khí, hạch toán chi phí giá thành và kế toán tài chính.",
+
+        "grp3.title": "Khối Doanh nghiệp Thương mại, Dịch vụ & Năng lượng",
+        "c8.field": "Cung cấp giải pháp năng lượng mặt trời, quản lý dự án năng lượng tái tạo và dịch vụ tiết kiệm năng lượng.",
+        "c8.role": "Tech Lead giải pháp Mua hàng (Procurement) — Lead team lập trình và thiết kế giải pháp tự động hóa quy trình mua sắm, quản lý chuỗi cung ứng và kiểm soát thầu/vật tư dự án năng lượng.",
+
+        "c9.field": "Kinh doanh dịch vụ ẩm thực (F&B), chuỗi nhà hàng cao cấp và đầu tư thương mại dịch vụ.",
+        "c9.role": "Tech Lead giải pháp ERP F&B — Thiết kế giải pháp quản lý chi phí chuỗi nhà hàng, kết nối dữ liệu bán hàng POS và quản lý kho định lượng ẩm thực.",
+
+        "c10.field": "Sản xuất, kinh doanh và phân phối các sản phẩm nhôm, inox, vật liệu kim loại dân dụng và công nghiệp.",
+        "c10.role": "Tech Lead giải pháp ERP — Quản lý phân phối vật liệu kim loại, chính sách giá bán sỉ/lẻ, quản lý công nợ và kế toán kho.",
+
+        "c11.field": "Thương mại dịch vụ cao cấp, phân phối sản phẩm và giải pháp công nghệ thương mại.",
+        "c11.role": "Tech Lead giải pháp ERP — Tích hợp quản lý đơn hàng thương mại, tự động hóa quy trình bán hàng và quản trị tài chính kế toán.",
+
+        "grp4.title": "Khối Giải trí, F&B & Chuyên ngành Đặc thù",
+        "c12.field": "Hoạt động nghệ thuật biểu diễn, tổ chức sự kiện văn hóa, giải trí và sản xuất chương trình nghệ thuật.",
+        "c12.role": "Tech Lead giải pháp ERP Đặc thù — Xây dựng giải pháp quản lý tài chính dự án nghệ thuật, theo dõi doanh thu vé biểu diễn và quản lý chi phí sản xuất sự kiện văn hóa.",
+
+        "ext.badge": "Giải quyết bài toán thực tế",
+        "ext.title": "Các Extension & Tiện Ích Tự Phát Triển",
+        "ext.subtitle": "Xuất phát từ chính những khó khăn hàng ngày khi lập trình ERP và thao tác trên SQL Server.",
+
+        "tool1.probTitle": "Bài toán thực tế:",
+        "tool1.prob": "Viết lệnh T-SQL trong SSMS phải bấm hoa thường thủ công, code dài khó đọc; các công cụ thương mại bên ngoài thì nặng nề hoặc tốn phí bản quyền.",
+        "tool1.f1": "Tự động viết HOA hơn 510 từ khóa, hàm và kiểu dữ liệu T-SQL ngay khi bấm Space, Enter, Tab.",
+        "tool1.f2": "Sử dụng Lexer phân tích cú pháp chuẩn của Microsoft ScriptDom: Tuyệt đối không làm đổi chữ trong chuỗi string ('...'), chú thích comment, hoặc tên bảng trong ngoặc vuông ([...]).",
+        "tool1.f3": "Bung Snippet tức thì (viết `ssf` -> bung thành `SELECT * FROM $CURSOR$` đặt sẵn con trỏ), tạo nhanh snippet bằng phím tắt `Ctrl+Alt+S`.",
+        "tool1.f4": "Tích hợp thẳng vào Tools -> Options của SSMS, hỗ trợ giao diện Dark/Light.",
+
+        "tool2.probTitle": "Bài toán thực tế:",
+        "tool2.prob": "Hệ thống ERP (Arito, Fast) nhúng code JavaScript trong thẻ <js> của file XML. Visual Studio chỉ hiểu đây là XML thuần nên không hề có gợi ý cú pháp, lập trình viên phải nhớ chay toàn bộ tên hàm.",
+        "tool2.f1": "Tự động bắt sự kiện gõ trong khối thẻ <js><![CDATA[ ... ]]></js> để bật bảng autocomplete IntelliSense.",
+        "tool2.f2": "Tự động phân tích các tệp kịch bản trong hệ thống để nạp danh sách các hàm vòng đời và xử lý nghiệp vụ của ERP.",
+        "tool2.f3": "Hỗ trợ gợi ý cú pháp đầy đủ cho các phương thức thao tác Form, Grid dữ liệu và bộ hàm tiện ích dùng chung của hệ thống ERP.",
+        "tool2.f4": "Chạy 100% trong bộ nhớ RAM, tự cập nhật khi file JS thay đổi (Hot-Reload) mà không làm lag Visual Studio.",
+
+        "tool3.probTitle": "Bài toán thực tế:",
+        "tool3.prob": "Cần môi trường để cấu hình nhanh các màn hình chức năng ERP, đồng thời theo dõi đo lường xem procedure nào chạy chậm trong quá trình vận hành hệ thống.",
+        "tool3.f1": "Bộ công cụ hỗ trợ cấu hình dữ liệu, kết nối và kiểm tra tính hợp lệ của cấu trúc XML schema.",
+        "tool3.f2": "Theo dõi thời gian thực thi của các tác vụ ERP để phát hiện sớm các câu truy vấn gây nghẽn database.",
+
+        "tool4.probTitle": "Bài toán thực tế:",
+        "tool4.prob": "Cần mở nhanh các thư mục dự án, server test, tài liệu hướng dẫn và chuyển đổi nhanh báo cáo kế toán (Office <-> PDF) mà không làm rò rỉ tiến trình ngầm.",
+        "tool4.f1": "ShortcutCenter (WPF): Quản lý phím tắt toàn hệ thống, bật nhanh tài liệu và môi trường lập trình chỉ bằng 1 tổ hợp phím.",
+        "tool4.f2": "LumiConverter (Python): Chuyển đổi báo cáo Word, Excel, PowerPoint sang PDF và bóc tách bảng PDF sang Excel, tự động tắt triệt để tiến trình Excel/Word ngầm.",
+
+        "timeline.badge": "Hành trình sự nghiệp",
+        "timeline.title": "Quá Trình Phát Triển & Kinh Nghiệm",
+        "timeline.subtitle": "Từ nền tảng học thuật tại ĐH Khoa học Tự nhiên TP.HCM (2013-2017) đến thực chiến tại Fast ERP (2017-2019) và vai trò Tech Lead tại Arito ERP (2019-Hiện tại).",
+
+        "timeline.r3": "Tech Lead tại Arito Solutions (Arito ERP)",
+        "timeline.b3": "HIỆN TẠI",
+        "timeline.c3": "Công ty Cổ phần Giải pháp ERP Arito (Arito Solutions)",
+        "timeline.d3_1": "Đóng vai trò là cầu nối kỹ thuật huyết mạch giữa các phòng ban nghiệp vụ/khách hàng và đội ngũ phát triển phần mềm (Development Team).",
+        "timeline.d3_2": "Trực tiếp tiếp nhận yêu cầu nghiệp vụ cốt lõi, phân tích mức độ đáp ứng của hệ thống Arito ERP và định hướng giải pháp kỹ thuật, thiết kế kiến trúc hệ thống.",
+        "timeline.d3_3": "Lead team lập trình hiện thực hóa các bài toán vận hành phức tạp của doanh nghiệp (từ quản trị hệ thống ERP tổng thể, chuỗi cung ứng, hệ thống mua hàng/Procurement, tích hợp API kết nối đơn hàng, tài chính kế toán đến các phân hệ chuyên sâu như HRM, E-sourcing, LIMS...) thành các tính năng/module phần mềm tối ưu.",
+        "timeline.d3_4": "Trực tiếp nghiên cứu và phát triển các tiện ích mở rộng nội bộ (Lumi SQL Formatter cho SSMS, LumiIntellisense cho Visual Studio) giúp nâng cao năng suất viết code và giảm thiểu tối đa sai sót cú pháp cho toàn bộ đội ngũ kỹ thuật.",
+
+        "timeline.r2": "Lập trình viên ERP & Cơ sở dữ liệu SQL Server",
+        "timeline.b2": "CHUYÊN SÂU ERP",
+        "timeline.c2": "Công ty Cổ phần Phần mềm FAST (FAST ERP)",
+        "timeline.d2_1": "Nắm vững và làm chủ cấu trúc XML Metadata quy chuẩn của hệ thống FAST ERP: định nghĩa danh mục, thiết kế màn hình nhập liệu chứng từ, cấu hình trường dữ liệu, validation và phân quyền người dùng.",
+        "timeline.d2_2": "Lập trình kịch bản xử lý sự kiện giao diện, kiểm tra ràng buộc hợp lệ của dữ liệu, tự động tính toán thuế, chiết khấu và tổng tiền trên lưới chứng từ.",
+        "timeline.d2_3": "Chuyên sâu Microsoft SQL Server: Viết các Stored Procedure, Function tính toán số liệu sổ sách kế toán, lập báo cáo tài chính, bảng cân đối phát sinh, sổ cái, báo cáo công nợ và sổ kho.",
+        "timeline.d2_4": "Rèn luyện kinh nghiệm thực chiến vững chắc về chuẩn mực kế toán tài chính Việt Nam và các bài toán luân chuyển chứng từ trong doanh nghiệp thương mại, sản xuất.",
+
+        "timeline.r1": "Trường Đại học Khoa học Tự nhiên - ĐHQG TP.HCM",
+        "timeline.b1": "NỀN TẢNG KỸ THUẬT",
+        "timeline.c1": "Chuyên ngành Hệ thống Thông tin",
+        "timeline.d1_1": "Học tập chuyên ngành Hệ thống Thông tin tại Trường Đại học Khoa học Tự nhiên - ĐHQG TP.HCM (HCMUS), tiếp thu nền tảng vững chắc về Cấu trúc dữ liệu & Giải thuật, Lý thuyết Cơ sở dữ liệu quan hệ (RDBMS), Đại số quan hệ và Hệ quản trị SQL Server.",
+        "timeline.d1_2": "Nghiên cứu sâu về phân tích thiết kế hệ thống thông tin: mô hình hóa quy trình nghiệp vụ doanh nghiệp, chuẩn hóa cơ sở dữ liệu và thiết kế kiến trúc phần mềm.",
+        "timeline.d1_3": "Đặt nền móng tư duy logic chặt chẽ, rèn luyện kỹ năng lập trình hướng đối tượng (.NET / C#) và định hình mục tiêu chuyên sâu vào lĩnh vực phần mềm quản trị doanh nghiệp (ERP).",
+
+        "contact.title": "Liên Hệ & Trao Đổi Công Việc",
+        "contact.desc": "Nếu bạn đang tìm kiếm Tech Lead chuyên sâu về <strong>SQL Server</strong>, <strong>Arito ERP</strong>, <strong>Fast ERP</strong> hoặc có nhu cầu trao đổi về các giải pháp kiến trúc hệ thống doanh nghiệp, vui lòng liên hệ:",
+        "contact.copy": "Sao chép",
+        "contact.quickTitle": "Gửi email trực tiếp",
+        "contact.quickDesc": "Bấm nút bên dưới để mở ứng dụng email của bạn và gửi thư trực tiếp cho tôi.",
+        "contact.mailBtn": "Mở Email & Gửi Tin Nhắn"
+      },
+      en: {
+        "logo.title": "Tech Lead @ Arito Solutions",
+        "nav.focus": "Core Focus",
+        "nav.projects": "Tech Lead Projects",
+        "nav.extensions": "Productivity Tools",
+        "nav.timeline": "Career Timeline",
+        "nav.experience": "Work Experience",
+        "nav.contact": "Contact",
+
+        "hero.tag": "Tech Lead • Arito Solutions • SQL Server • ERP",
+        "hero.headline": "ERP Solutions Tech Lead & SQL Server Database Specialist",
+        "hero.desc": "I am <strong>Nguyễn Thanh Phong</strong>, currently serving as <strong>Tech Lead at Arito Solutions</strong>. Acting as the vital technical bridge between business departments/clients and the Development Team; architecting solutions, defining system architectures, and leading engineering teams to successfully deliver comprehensive ERP systems for manufacturing corporations, large-scale retail chains, FDI enterprises, and renewable energy providers.",
+        "hero.btnProjects": "Projects & Engagements",
+        "hero.btnContact": "Contact Details",
+
+        "card.sql.title": "SQL Server Database Engineering",
+        "card.sql.desc": "Designing enterprise data schemas, authoring complex calculation procedures, ensuring data integrity, and query tuning.",
+        "card.erp.title": "Enterprise ERP & Specialized Modules",
+        "card.erp.desc": "Comprehensive ERP governance, Supply Chain, Procurement, API integration, HRM, E-sourcing, and specialized LIMS.",
+        "card.tool.title": "Self-Developed Internal Tooling",
+        "card.tool.desc": "Building extensions for SSMS and Visual Studio to auto-format T-SQL and provide autocomplete in ERP XML metadata.",
+
+        "stat.s1": "Major enterprise & group projects directly led as Tech Lead",
+        "stat.s2": "Developing internal tools & extensions for the team",
+        "stat.s3": "100% focused on real enterprise challenges & query optimization",
+
+        "focus.badge": "Practical Capabilities",
+        "focus.title": "3 Core Areas of Technical Focus",
+        "focus.subtitle": "Hands-on experience cultivated from leading enterprise ERP architectures and database engineering.",
+
+        "pillar1.title": "Microsoft SQL Server",
+        "pillar1.i1": "Developing Stored Procedures and Functions for general ledger, accounts payable/receivable, and inventory balance.",
+        "pillar1.i2": "Tuning slow queries by analyzing Execution Plans and optimizing indexes on heavy transaction tables.",
+        "pillar1.i3": "Controlling data integrity via Stored Procedures & business logic: period-end closing locks, negative inventory checks, and posting rules.",
+        "pillar1.i4": "Database maintenance: backups, restores, integrity checks, and index fragmentation analysis.",
+
+        "pillar2.title": "Arito ERP & Fast ERP",
+        "pillar2.i1": "Proficient with XML Metadata configuration (defining catalogs, voucher screens, field properties, validations).",
+        "pillar2.i2": "Programming client-side event logic to validate user inputs and automate calculations on transaction voucher screens.",
+        "pillar2.i3": "Creating financial statements, trial balances, general journals, sales, and debt aging reports.",
+        "pillar2.i4": "Customizing calculation logic and voucher approval workflows according to specific enterprise requirements.",
+
+        "pillar3.title": "Custom Extension Engineering",
+        "pillar3.i1": "Building custom extensions for SSMS & Visual Studio in C# (.NET / VSSDK) to remove daily coding frictions.",
+        "pillar3.i2": "Writing automation scripts in Python/PowerShell for data migration and report file conversions.",
+        "pillar3.i3": "Going beyond standard off-the-shelf tools to proactively build solutions that make development faster and more reliable.",
+
+        "arito.badge": "Key Deliverables",
+        "arito.title": "Key Tech Lead Projects at Arito Solutions",
+        "arito.subtitle": "Major enterprise projects with direct requirement analysis, technical solution design, and development team leadership.",
+        "client.fieldLabel": "Industry:",
+        "client.roleLabel": "Role/Modules:",
+
+        "grp1.title": "Corporations & Large Enterprises (Manufacturing, Retail & Testing)",
+        "c1.field": "General trading, FMCG, food distribution, and multi-branch retail network management.",
+        "c1.role": "Tech Lead for Total ERP & API Integration — Led the development team to deploy comprehensive Arito ERP, designed API sync solutions and automated order ingestion for large-scale retail distribution chains.",
+
+        "c2.field": "Industrial plastic packaging, bottles, mechanical products, and production auxiliary services.",
+        "c2.role": "Tech Lead for Total ERP — Led the team to implement and optimize comprehensive Arito ERP for large-scale plastic packaging and mechanical manufacturing plants.",
+
+        "c3.field": "Electronic components, precision mechanics, and industrial auxiliary equipment.",
+        "c3.role": "Tech Lead for HRM Module — Led development solving large-scale HR management, timekeeping, payroll, and workforce automation aligned with FDI manufacturing standards.",
+
+        "c4.field": "Manufacturing and precision machining of industrial products and high-tech components.",
+        "c4.role": "Tech Lead for HRM Module — Led technical solutions and development of HR management, attendance, and payroll modules integrated into enterprise operations.",
+
+        "c5.field": "Testing services, product quality analysis (food, agriculture, pharmaceuticals) and technical consultancy.",
+        "c5.role": "Tech Lead for Multi-Modules (HRM, ERP, E-sourcing, LIMS & Quality Mapping) — Led the development team deploying and seamlessly integrating Core ERP, HRM, E-sourcing portal, and specialized laboratory testing systems (LIMS & Quality Mapping).",
+
+        "grp2.title": "Manufacturing & Industrial Enterprises",
+        "c6.field": "Manufacturing and distribution of industrial wood and premium artificial plywood for interior design and construction.",
+        "c6.role": "Tech Lead for ERP Solutions — Customized accounting modules, bill of materials (BOM), production scheduling, and supply chain for industrial wood manufacturing.",
+
+        "c7.field": "Mechanical fabrication, manufacturing, and trading of building materials and metal structures.",
+        "c7.role": "Tech Lead for ERP Solutions — Deployed metal inventory management, mechanical processing orders tracking, cost accounting, and financial management.",
+
+        "grp3.title": "Trading, Services & Renewable Energy Enterprises",
+        "c8.field": "Solar energy solutions, renewable energy project management, and energy efficiency services.",
+        "c8.role": "Tech Lead for Procurement Solutions — Led the engineering team designing automated procurement workflows, supply chain management, and bidding/materials control for energy projects.",
+
+        "c9.field": "Food & Beverage (F&B) services, premium restaurant chains, and commercial investment.",
+        "c9.role": "Tech Lead for F&B ERP Solutions — Designed restaurant chain cost control solutions, POS data integration, and portion inventory management.",
+
+        "c10.field": "Manufacturing, trading, and distribution of aluminum, stainless steel, and industrial metal products.",
+        "c10.role": "Tech Lead for ERP Solutions — Managed metal distribution, wholesale/retail pricing policies, accounts receivable, and warehouse accounting.",
+
+        "c11.field": "Premium commercial services, product distribution, and commercial technology solutions.",
+        "c11.role": "Tech Lead for ERP Solutions — Integrated commercial order management, sales workflow automation, and financial accounting.",
+
+        "grp4.title": "Entertainment, F&B & Specialized Industries",
+        "c12.field": "Performing arts, cultural event organization, entertainment, and art production.",
+        "c12.role": "Tech Lead for Specialized ERP Solutions — Built financial management solutions for art projects, performance ticket revenue tracking, and cultural production cost control.",
+
+        "ext.badge": "Solving Real-World Problems",
+        "ext.title": "Self-Developed Extensions & Tools",
+        "ext.subtitle": "Created to solve real pain points encountered when programming ERP systems and querying SQL Server.",
+
+        "tool1.probTitle": "Real problem:",
+        "tool1.prob": "Writing T-SQL queries in SSMS requires manual casing, making long code hard to read; third-party commercial tools are often bloated or require costly licenses.",
+        "tool1.f1": "Automatically capitalizes 510+ T-SQL keywords, functions, and data types when pressing Space, Enter, or Tab.",
+        "tool1.f2": "Integrated Microsoft ScriptDom Lexer: Never alters text inside string literals ('...'), comments, or bracketed identifiers ([...]).",
+        "tool1.f3": "Instant snippet expansion (type `ssf` -> expands to `SELECT * FROM $CURSOR$` with cursor positioned), quick snippet creation via `Ctrl+Alt+S`.",
+        "tool1.f4": "Integrated directly into SSMS Tools -> Options with Dark/Light theme support.",
+
+        "tool2.probTitle": "Real problem:",
+        "tool2.prob": "ERP systems (Arito, Fast) embed JavaScript inside <js> tags in XML files. Visual Studio treats them as raw XML, offering zero syntax assistance.",
+        "tool2.f1": "Intercepts typing events inside <js><![CDATA[ ... ]]></js> blocks to trigger instant IntelliSense autocomplete.",
+        "tool2.f2": "Scans system script files to populate autocomplete entries for ERP lifecycle and business event handlers.",
+        "tool2.f3": "Provides comprehensive autocomplete suggestions for Form/Grid helpers and common ERP system utilities.",
+        "tool2.f4": "Runs 100% in RAM with background FileSystemWatcher Hot-Reload, keeping Visual Studio completely lag-free.",
+
+        "tool3.probTitle": "Real problem:",
+        "tool3.prob": "Need a fast environment to configure ERP screens and profile which SQL procedures cause slowdowns during operations.",
+        "tool3.f1": "Tooling suite for metadata configuration, connection management, and XML schema validation.",
+        "tool3.f2": "Monitors execution times of ERP procedures to detect database bottlenecks early.",
+
+        "tool4.probTitle": "Real problem:",
+        "tool4.prob": "Need instant access to project repositories, test servers, manuals, and reliable document conversion (Office <-> PDF) without leaving background zombie processes.",
+        "tool4.f1": "ShortcutCenter (WPF): System-wide global hotkey manager to launch environments and files with a single keystroke.",
+        "tool4.f2": "LumiConverter (Python): Converts Word, Excel, and PowerPoint to PDF and extracts PDF tables into Excel with 100% clean process cleanup.",
+
+        "timeline.badge": "Career Journey",
+        "timeline.title": "Career & Education Timeline",
+        "timeline.subtitle": "From university academic foundations at HCMUS (2013-2017) to specialized ERP engineering at Fast ERP (2017-2019) and Tech Lead at Arito ERP (2019-Present).",
+
+        "timeline.r3": "Tech Lead at Arito Solutions (Arito ERP)",
+        "timeline.b3": "PRESENT",
+        "timeline.c3": "Arito Solutions (Arito ERP Joint Stock Company)",
+        "timeline.d3_1": "Acting as the vital technical bridge between business departments/clients and the Development Team.",
+        "timeline.d3_2": "Directly gathering core business requirements, analyzing system feasibility, shaping technical solutions, and architecting systems.",
+        "timeline.d3_3": "Leading the development team in translating complex operational problems (total ERP, supply chain, procurement, API integration, finance/accounting, HRM, E-sourcing, LIMS) into optimized software features.",
+        "timeline.d3_4": "Researching and developing internal IDE tooling (Lumi SQL Formatter for SSMS, LumiIntellisense for Visual Studio) to accelerate development and eliminate syntax errors across the engineering team.",
+
+        "timeline.r2": "ERP & SQL Server Database Developer",
+        "timeline.b2": "ERP SPECIALIZATION",
+        "timeline.c2": "FAST Software Company (FAST ERP)",
+        "timeline.d2_1": "Mastered standard XML Metadata architectures: defining catalogs, voucher entry screens, data field properties, validation schemas, and user authorization rules.",
+        "timeline.d2_2": "Programmed client-side event logic to enforce input validations and automate dynamic recalculations of taxes, discounts, and voucher line totals.",
+        "timeline.d2_3": "SQL Server database engineering: authored Stored Procedures and Functions for general ledger computations, financial statements, trial balances, sales reports, receivables/payables, and inventory tracking.",
+        "timeline.d2_4": "Gained deep real-world domain mastery of Vietnamese accounting standards and voucher lifecycles across trading and manufacturing enterprises.",
+
+        "timeline.r1": "VNUHCM - University of Science (HCMUS)",
+        "timeline.b1": "TECHNICAL FOUNDATION",
+        "timeline.c1": "Major in Information Systems",
+        "timeline.d1_1": "Studied Information Systems at VNUHCM - University of Science (HCMUS), mastering strong foundations in Data Structures & Algorithms, Relational Database Theory (RDBMS), Relational Algebra, and Microsoft SQL Server administration.",
+        "timeline.d1_2": "Conducted in-depth study of Information Systems analysis and design: enterprise workflow modeling, database normalization, and software architecture.",
+        "timeline.d1_3": "Established strong logical thinking, object-oriented programming skills (.NET / C#), and charted a clear career trajectory dedicated to enterprise ERP systems.",
+
+        "contact.title": "Contact & Professional Inquiries",
+        "contact.desc": "If you are looking for an experienced Tech Lead specializing in <strong>SQL Server</strong>, <strong>Arito ERP</strong>, <strong>Fast ERP</strong>, or would like to discuss enterprise architectural solutions, feel free to reach out:",
+        "contact.copy": "Copy",
+        "contact.quickTitle": "Direct Email",
+        "contact.quickDesc": "Click the button below to open your email client and send me a direct message.",
+        "contact.mailBtn": "Open Email & Send Message"
+      }
+    };
+
+    let currentLang = localStorage.getItem('site_lang_v3') || 'vi';
+    let currentTheme = localStorage.getItem('site_theme_v3') || 'dark';
+
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('site_lang_v3', lang);
+
+      document.getElementById('btnVi').classList.toggle('active', lang === 'vi');
+      document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[lang] && i18n[lang][key]) {
+          el.innerHTML = i18n[lang][key];
+        }
+      });
+    }
+
+    function setTheme(theme) {
+      currentTheme = theme;
+      localStorage.setItem('site_theme_v3', theme);
+      document.documentElement.setAttribute('data-theme', theme);
+
+      const icon = document.getElementById('themeIcon');
+      if (theme === 'light') {
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+      } else {
+        icon.innerHTML = `
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        `;
+      }
+    }
+
+    function toggleTheme() {
+      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    }
+
+    function copyEmail() {
+      const email = 'nguyenthanhphong0713@gmail.com';
+      navigator.clipboard.writeText(email).then(() => {
+        const toast = document.getElementById('toast');
+        toast.textContent = currentLang === 'vi' ? 'Đã sao chép email vào bộ nhớ tạm!' : 'Email copied to clipboard!';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setTheme(currentTheme);
+      setLang(currentLang);
+    });
+  </script>
+</body>
+</html>
