@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi" data-theme="dark">
+<html lang="vi" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -837,6 +837,72 @@
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     }
 
+    .timeline-header-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .timeline-logo-box {
+      width: 110px;
+      height: 48px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 5px 8px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+    }
+
+    .stage-edu .timeline-logo-box {
+      width: 48px;
+      height: 48px;
+      padding: 3px;
+    }
+
+    .timeline-card:hover .timeline-logo-box {
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .timeline-item.stage-fast:hover .timeline-logo-box {
+      border-color: var(--emerald);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+    }
+
+    .timeline-item.stage-edu:hover .timeline-logo-box {
+      border-color: var(--amber);
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+    }
+
+    .timeline-logo {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .timeline-header-main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .timeline-header-main .timeline-top {
+      margin-bottom: 4px;
+    }
+
+    .timeline-header-main .timeline-company {
+      margin-bottom: 0;
+    }
+
     .timeline-top {
       display: flex;
       justify-content: space-between;
@@ -1079,6 +1145,11 @@
       .timeline-card {
         padding: 18px 20px;
       }
+      .timeline-header-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
     }
   </style>
 </head>
@@ -1113,15 +1184,7 @@
 
         <button class="icon-btn" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">
           <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
           </svg>
         </button>
       </div>
@@ -1756,14 +1819,21 @@
               </svg>
             </div>
             <div class="timeline-card">
-              <div class="timeline-top">
-                <div class="timeline-role" data-i18n="timeline.r3">Tech Lead tại Arito Solutions (Arito ERP)</div>
-                <div class="timeline-meta">
-                  <span class="timeline-badge" data-i18n="timeline.b3">HIỆN TẠI</span>
-                  <span class="timeline-period">2019 — HIỆN TẠI</span>
+              <div class="timeline-header-wrap">
+                <div class="timeline-logo-box" title="Arito Solutions">
+                  <img src="logo-arito.png" alt="Arito Solutions Logo" class="timeline-logo">
+                </div>
+                <div class="timeline-header-main">
+                  <div class="timeline-top">
+                    <div class="timeline-role" data-i18n="timeline.r3">Tech Lead tại Arito Solutions (Arito ERP)</div>
+                    <div class="timeline-meta">
+                      <span class="timeline-badge" data-i18n="timeline.b3">HIỆN TẠI</span>
+                      <span class="timeline-period">2019 — HIỆN TẠI</span>
+                    </div>
+                  </div>
+                  <div class="timeline-company" data-i18n="timeline.c3">Công ty Cổ phần Giải pháp ERP Arito (Arito Solutions)</div>
                 </div>
               </div>
-              <div class="timeline-company" data-i18n="timeline.c3">Công ty Cổ phần Giải pháp ERP Arito (Arito Solutions)</div>
               
               <div class="timeline-tags">
                 <span class="timeline-tag">Tech Lead</span>
@@ -1790,14 +1860,21 @@
               </svg>
             </div>
             <div class="timeline-card">
-              <div class="timeline-top">
-                <div class="timeline-role" data-i18n="timeline.r2">Lập trình viên ERP &amp; Cơ sở dữ liệu SQL Server</div>
-                <div class="timeline-meta">
-                  <span class="timeline-badge" data-i18n="timeline.b2">CHUYÊN SÂU ERP</span>
-                  <span class="timeline-period">2017 — 2019</span>
+              <div class="timeline-header-wrap">
+                <div class="timeline-logo-box" title="FAST Software Company">
+                  <img src="logo-fast.png" alt="FAST Software Company Logo" class="timeline-logo">
+                </div>
+                <div class="timeline-header-main">
+                  <div class="timeline-top">
+                    <div class="timeline-role" data-i18n="timeline.r2">Lập trình viên ERP &amp; Cơ sở dữ liệu SQL Server</div>
+                    <div class="timeline-meta">
+                      <span class="timeline-badge" data-i18n="timeline.b2">CHUYÊN SÂU ERP</span>
+                      <span class="timeline-period">2017 — 2019</span>
+                    </div>
+                  </div>
+                  <div class="timeline-company" data-i18n="timeline.c2">Công ty Cổ phần Phần mềm FAST (FAST ERP)</div>
                 </div>
               </div>
-              <div class="timeline-company" data-i18n="timeline.c2">Công ty Cổ phần Phần mềm FAST (FAST ERP)</div>
               
               <div class="timeline-tags">
                 <span class="timeline-tag">Fast Accounting</span>
@@ -1826,14 +1903,21 @@
               </svg>
             </div>
             <div class="timeline-card">
-              <div class="timeline-top">
-                <div class="timeline-role" data-i18n="timeline.r1">Trường Đại học Khoa học Tự nhiên - ĐHQG TP.HCM</div>
-                <div class="timeline-meta">
-                  <span class="timeline-badge" data-i18n="timeline.b1">NỀN TẢNG KỸ THUẬT</span>
-                  <span class="timeline-period">2013 — 2017</span>
+              <div class="timeline-header-wrap">
+                <div class="timeline-logo-box" title="Trường ĐH Khoa học Tự nhiên - ĐHQG TP.HCM">
+                  <img src="logo-hcmus.png" alt="HCMUS Logo" class="timeline-logo">
+                </div>
+                <div class="timeline-header-main">
+                  <div class="timeline-top">
+                    <div class="timeline-role" data-i18n="timeline.r1">Trường Đại học Khoa học Tự nhiên - ĐHQG TP.HCM</div>
+                    <div class="timeline-meta">
+                      <span class="timeline-badge" data-i18n="timeline.b1">NỀN TẢNG KỸ THUẬT</span>
+                      <span class="timeline-period">2013 — 2017</span>
+                    </div>
+                  </div>
+                  <div class="timeline-company" data-i18n="timeline.c1">Chuyên ngành Hệ thống Thông tin</div>
                 </div>
               </div>
-              <div class="timeline-company" data-i18n="timeline.c1">Chuyên ngành Hệ thống Thông tin</div>
               
               <div class="timeline-tags">
                 <span class="timeline-tag">ĐH Khoa học Tự nhiên TP.HCM (HCMUS)</span>
@@ -2255,7 +2339,7 @@
     };
 
     let currentLang = localStorage.getItem('site_lang_v3') || 'vi';
-    let currentTheme = localStorage.getItem('site_theme_v3') || 'dark';
+    let currentTheme = localStorage.getItem('site_theme_v4') || 'light';
 
     function setLang(lang) {
       currentLang = lang;
@@ -2275,7 +2359,7 @@
 
     function setTheme(theme) {
       currentTheme = theme;
-      localStorage.setItem('site_theme_v3', theme);
+      localStorage.setItem('site_theme_v4', theme);
       document.documentElement.setAttribute('data-theme', theme);
 
       const icon = document.getElementById('themeIcon');
