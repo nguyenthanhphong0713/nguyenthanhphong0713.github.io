@@ -1023,6 +1023,278 @@
       color: var(--amber);
     }
 
+    /* Chứng chỉ Quốc tế (ISO Certificate) */
+    .cert-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 36px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .cert-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 12px 32px rgba(2, 132, 199, 0.08);
+    }
+
+    .cert-preview {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      padding: 10px;
+      cursor: zoom-in;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      transition: var(--transition);
+    }
+
+    .cert-preview:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary);
+      box-shadow: 0 14px 30px rgba(2, 132, 199, 0.16);
+    }
+
+    .cert-preview img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+    }
+
+    .cert-zoom-hint {
+      position: absolute;
+      bottom: 18px;
+      right: 18px;
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(6px);
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 99px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      pointer-events: none;
+      transition: var(--transition);
+    }
+
+    .cert-preview:hover .cert-zoom-hint {
+      background: var(--primary);
+    }
+
+    .cert-info {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .cert-header-badges {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cert-verified-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 5px 12px;
+      border-radius: 99px;
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .cert-standard-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 5px 12px;
+      border-radius: 99px;
+      background: var(--primary-glow);
+      color: var(--primary);
+      border: 1px solid var(--border-highlight);
+    }
+
+    .cert-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.35;
+    }
+
+    .cert-desc {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .cert-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+    }
+
+    .cert-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .cert-meta-label {
+      font-size: 0.73rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--text-subtle);
+    }
+
+    .cert-meta-val {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .cert-meta-val.mono {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--primary);
+    }
+
+    .cert-highlights {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cert-highlights li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .cert-highlights li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--emerald);
+      font-weight: 800;
+    }
+
+    .cert-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    /* Lightbox Modal xem chứng chỉ */
+    .cert-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .cert-modal.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .cert-modal-content {
+      position: relative;
+      max-width: 960px;
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+      animation: fadeIn 0.22s ease;
+    }
+
+    .cert-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 8px 12px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 12px;
+    }
+
+    .cert-modal-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cert-modal-close {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .cert-modal-close:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .cert-modal-body {
+      max-height: 80vh;
+      overflow: auto;
+      border-radius: 8px;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+    }
+
+    .cert-modal-body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
     /* Liên hệ */
     .contact-card {
       background: var(--bg-surface);
@@ -1113,9 +1385,13 @@
 
     /* Responsive */
     @media (max-width: 880px) {
-      .hero-layout, .core-pillars, .client-grid, .tools-grid, .contact-card {
+      .hero-layout, .core-pillars, .client-grid, .tools-grid, .cert-card, .contact-card {
         grid-template-columns: 1fr;
         gap: 20px;
+      }
+      .cert-meta-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
       }
       .stats-row {
         grid-template-columns: 1fr;
@@ -1172,6 +1448,7 @@
           <li><a href="#projects" data-i18n="nav.projects">Dự án tiêu biểu</a></li>
           <li><a href="#extensions" data-i18n="nav.extensions">Extension hỗ trợ</a></li>
           <li><a href="#timeline" data-i18n="nav.timeline">Hành trình phát triển</a></li>
+          <li><a href="#certifications" data-i18n="nav.cert">Chứng chỉ</a></li>
           <li><a href="#contact" data-i18n="nav.contact">Liên hệ</a></li>
         </ul>
       </nav>
@@ -1254,6 +1531,7 @@
                   <span class="badge-mini">Arito ERP</span>
                   <span class="badge-mini">SQL Server</span>
                   <span class="badge-mini">Fast ERP</span>
+                  <span class="badge-mini">ISO/IEC 27001:2022</span>
                 </div>
               </div>
             </div>
@@ -1308,7 +1586,7 @@
         <div class="stats-row">
           <div class="stat-box">
             <div class="stat-number">12+</div>
-            <div class="stat-label" data-i18n="stat.s1">Dự án doanh nghiệp lớn &amp; tập đoàn trực tiếp Tech Project Manager</div>
+            <div class="stat-label" data-i18n="stat.s1">Dự án doanh nghiệp lớn &amp; tập đoàn trực tiếp quản lý</div>
           </div>
           <div class="stat-box">
             <div class="stat-number">4+</div>
@@ -1839,6 +2117,7 @@
                 <span class="timeline-tag">Tech Project Manager</span>
                 <span class="timeline-tag">Arito ERP</span>
                 <span class="timeline-tag">SQL Server</span>
+                <span class="timeline-tag">ISO/IEC 27001:2022</span>
                 <span class="timeline-tag">Dev Tools Extension</span>
               </div>
 
@@ -1938,6 +2217,87 @@
       </div>
     </section>
 
+    <!-- Chứng chỉ & Tiêu chuẩn Quốc tế -->
+    <section class="section" id="certifications">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge" data-i18n="cert.badge">Chứng nhận quốc tế</div>
+          <h2 class="section-title" data-i18n="cert.secTitle">Chứng Chỉ &amp; Tiêu Chuẩn An Toàn Thông Tin</h2>
+          <p class="section-subtitle" data-i18n="cert.secSubtitle">
+            Cam kết chuẩn hóa quy trình bảo mật dữ liệu doanh nghiệp và quản trị rủi ro hệ thống ERP &amp; cơ sở dữ liệu theo tiêu chuẩn quốc tế ISO/IEC 27001:2022.
+          </p>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-preview" onclick="openCertModal()" title="Nhấn để phóng to chứng chỉ / Click to view full certificate">
+            <img src="./ISO_Cert.png" alt="Chứng chỉ ISO/IEC 27001:2022 - Nguyễn Thanh Phong">
+            <div class="cert-zoom-hint">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="11" y1="8" x2="11" y2="14"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+              </svg>
+              <span data-i18n="cert.zoomHint">Nhấn để xem ảnh gốc</span>
+            </div>
+          </div>
+
+          <div class="cert-info">
+            <div class="cert-header-badges">
+              <span class="cert-verified-pill">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  <path d="m9 12 2 2 4-4"></path>
+                </svg>
+                <span data-i18n="cert.verifiedBadge">Chứng chỉ đã xác thực</span>
+              </span>
+              <span class="cert-standard-pill">ISO/IEC 27001:2022 • ISMS</span>
+            </div>
+
+            <h3 class="cert-title" data-i18n="cert.name">
+              Nhận Thức Chung &amp; Đánh Giá Viên Nội Bộ Tiêu Chuẩn ISO/IEC 27001:2022
+            </h3>
+
+            <p class="cert-desc" data-i18n="cert.desc">
+              Hoàn thành chương trình đào tạo và đánh giá chuyên sâu về <strong>Hệ thống Quản lý An toàn Thông tin (ISMS)</strong> theo tiêu chuẩn quốc tế <strong>ISO/IEC 27001:2022</strong> dành cho đội ngũ nòng cốt tại <strong>Công ty Cổ phần Giải pháp Công nghệ Arito</strong>.
+            </p>
+
+            <div class="cert-meta-grid">
+              <div class="cert-meta-item">
+                <span class="cert-meta-label" data-i18n="cert.issuerLabel">Đơn vị cấp chứng nhận</span>
+                <span class="cert-meta-val" data-i18n="cert.issuerVal">KNA Certification Co., Ltd</span>
+              </div>
+              <div class="cert-meta-item">
+                <span class="cert-meta-label" data-i18n="cert.codeLabel">Mã số chứng chỉ</span>
+                <span class="cert-meta-val mono">KAT259070011</span>
+              </div>
+              <div class="cert-meta-item">
+                <span class="cert-meta-label" data-i18n="cert.orgLabel">Đơn vị công tác</span>
+                <span class="cert-meta-val" data-i18n="cert.orgVal">Arito Technology Solutions JSC</span>
+              </div>
+            </div>
+
+            <ul class="cert-highlights">
+              <li data-i18n="cert.h1">Áp dụng tiêu chuẩn bảo mật ISO/IEC 27001:2022 vào thiết kế kiến trúc hệ thống ERP, kiểm soát phân quyền truy cập và bảo vệ dữ liệu tài chính trọng yếu trên SQL Server.</li>
+              <li data-i18n="cert.h2">Thực hiện đánh giá nội bộ (Internal Audit), nhận diện rủi ro an toàn thông tin trong quy trình phát triển phần mềm, tích hợp API và triển khai hệ thống cho các tập đoàn lớn &amp; doanh nghiệp FDI.</li>
+            </ul>
+
+            <div class="cert-actions">
+              <button type="button" class="btn btn-primary" onclick="openCertModal()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M15 3h6v6"></path>
+                  <path d="M9 21H3v-6"></path>
+                  <path d="M21 3l-7 7"></path>
+                  <path d="M3 21l7-7"></path>
+                </svg>
+                <span data-i18n="cert.viewBtn">Xem chứng chỉ độ phân giải cao</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Liên hệ -->
     <section class="section" id="contact">
       <div class="container">
@@ -1998,6 +2358,30 @@
     </section>
   </main>
 
+  <!-- Lightbox Modal Xem Chứng Chỉ -->
+  <div class="cert-modal" id="certModal" onclick="if(event.target === this) closeCertModal()">
+    <div class="cert-modal-content">
+      <div class="cert-modal-header">
+        <div class="cert-modal-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2.2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <path d="m9 12 2 2 4-4"></path>
+          </svg>
+          <span data-i18n="cert.modalTitle">Chứng chỉ ISO/IEC 27001:2022 — Nguyễn Thanh Phong (No: KAT259070011)</span>
+        </div>
+        <button type="button" class="cert-modal-close" onclick="closeCertModal()" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="cert-modal-body">
+        <img src="./ISO_Cert.png" alt="ISO/IEC 27001:2022 Certificate - Nguyễn Thanh Phong">
+      </div>
+    </div>
+  </div>
+
   <footer>
     <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
       <div>
@@ -2032,6 +2416,7 @@
         "nav.projects": "Dự án tiêu biểu",
         "nav.extensions": "Extension hỗ trợ",
         "nav.timeline": "Hành trình phát triển",
+        "nav.cert": "Chứng chỉ",
         "nav.experience": "Kinh nghiệm thực tiễn",
         "nav.contact": "Liên hệ",
         
@@ -2174,6 +2559,23 @@
         "timeline.d1_2": "Nghiên cứu sâu về phân tích thiết kế hệ thống thông tin: mô hình hóa quy trình nghiệp vụ doanh nghiệp, chuẩn hóa cơ sở dữ liệu và thiết kế kiến trúc phần mềm.",
         "timeline.d1_3": "Đặt nền móng tư duy logic chặt chẽ, rèn luyện kỹ năng lập trình hướng đối tượng (.NET / C#) và định hình mục tiêu chuyên sâu vào lĩnh vực phần mềm quản trị doanh nghiệp (ERP).",
 
+        "cert.badge": "Chứng nhận quốc tế",
+        "cert.secTitle": "Chứng Chỉ & Tiêu Chuẩn An Toàn Thông Tin",
+        "cert.secSubtitle": "Cam kết chuẩn hóa quy trình bảo mật dữ liệu doanh nghiệp và quản trị rủi ro hệ thống ERP & cơ sở dữ liệu theo tiêu chuẩn quốc tế ISO/IEC 27001:2022.",
+        "cert.zoomHint": "Nhấn để xem ảnh gốc",
+        "cert.verifiedBadge": "Chứng chỉ đã xác thực",
+        "cert.name": "Nhận Thức Chung & Đánh Giá Viên Nội Bộ Tiêu Chuẩn ISO/IEC 27001:2022",
+        "cert.desc": "Hoàn thành chương trình đào tạo và đánh giá chuyên sâu về <strong>Hệ thống Quản lý An toàn Thông tin (ISMS)</strong> theo tiêu chuẩn quốc tế <strong>ISO/IEC 27001:2022</strong> dành cho đội ngũ nòng cốt tại <strong>Công ty Cổ phần Giải pháp Công nghệ Arito</strong>.",
+        "cert.issuerLabel": "Đơn vị cấp chứng nhận",
+        "cert.issuerVal": "KNA Certification Co., Ltd",
+        "cert.codeLabel": "Mã số chứng chỉ",
+        "cert.orgLabel": "Đơn vị công tác",
+        "cert.orgVal": "Công ty CP Giải pháp Công nghệ Arito",
+        "cert.h1": "Áp dụng tiêu chuẩn bảo mật ISO/IEC 27001:2022 vào thiết kế kiến trúc hệ thống ERP, kiểm soát phân quyền truy cập và bảo vệ dữ liệu tài chính trọng yếu trên SQL Server.",
+        "cert.h2": "Thực hiện đánh giá nội bộ (Internal Audit), nhận diện rủi ro an toàn thông tin trong quy trình phát triển phần mềm, tích hợp API và triển khai hệ thống cho các tập đoàn lớn & doanh nghiệp FDI.",
+        "cert.viewBtn": "Xem chứng chỉ độ phân giải cao",
+        "cert.modalTitle": "Chứng chỉ ISO/IEC 27001:2022 — Nguyễn Thanh Phong (No: KAT259070011)",
+
         "contact.title": "Liên Hệ & Trao Đổi Công Việc",
         "contact.desc": "Nếu bạn đang tìm kiếm Tech Project Manager chuyên sâu về <strong>SQL Server</strong>, <strong>Arito ERP</strong>, <strong>Fast ERP</strong> hoặc có nhu cầu trao đổi về các giải pháp kiến trúc hệ thống doanh nghiệp, vui lòng liên hệ:",
         "contact.copy": "Sao chép",
@@ -2187,6 +2589,7 @@
         "nav.projects": "Featured Projects",
         "nav.extensions": "Productivity Tools",
         "nav.timeline": "Career Timeline",
+        "nav.cert": "Certifications",
         "nav.experience": "Work Experience",
         "nav.contact": "Contact",
 
@@ -2329,6 +2732,23 @@
         "timeline.d1_2": "Conducted in-depth study of Information Systems analysis and design: enterprise workflow modeling, database normalization, and software architecture.",
         "timeline.d1_3": "Established strong logical thinking, object-oriented programming skills (.NET / C#), and charted a clear career trajectory dedicated to enterprise ERP systems.",
 
+        "cert.badge": "International Certification",
+        "cert.secTitle": "Information Security Certifications & Standards",
+        "cert.secSubtitle": "Committed to standardizing enterprise data security governance and ERP/Database risk management in compliance with ISO/IEC 27001:2022.",
+        "cert.zoomHint": "Click to view full size",
+        "cert.verifiedBadge": "Verified Certificate",
+        "cert.name": "Awareness & Internal Auditor Training on ISO/IEC 27001:2022 Standard",
+        "cert.desc": "Successfully completed intensive training and assessment on <strong>Information Security Management Systems (ISMS)</strong> under the international <strong>ISO/IEC 27001:2022</strong> standard at <strong>Arito Technology Solutions Joint Stock Company</strong>.",
+        "cert.issuerLabel": "Issuing Organization",
+        "cert.issuerVal": "KNA Certification Co., Ltd",
+        "cert.codeLabel": "Certificate No.",
+        "cert.orgLabel": "Organization",
+        "cert.orgVal": "Arito Technology Solutions JSC",
+        "cert.h1": "Applying ISO/IEC 27001:2022 security controls to ERP system architecture, role-based access governance, and mission-critical financial data protection on SQL Server.",
+        "cert.h2": "Conducting ISMS Internal Audits, identifying information security risks across software development lifecycles, API integrations, and enterprise deployments for major corporations and FDI clients.",
+        "cert.viewBtn": "View High-Resolution Certificate",
+        "cert.modalTitle": "ISO/IEC 27001:2022 Certificate — Nguyễn Thanh Phong (No: KAT259070011)",
+
         "contact.title": "Contact & Professional Inquiries",
         "contact.desc": "If you are looking for an experienced Tech Project Manager specializing in <strong>SQL Server</strong>, <strong>Arito ERP</strong>, <strong>Fast ERP</strong>, or would like to discuss enterprise architectural solutions, feel free to reach out:",
         "contact.copy": "Copy",
@@ -2383,6 +2803,26 @@
     function toggleTheme() {
       setTheme(currentTheme === 'dark' ? 'light' : 'dark');
     }
+
+    function openCertModal() {
+      const modal = document.getElementById('certModal');
+      if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeCertModal() {
+      const modal = document.getElementById('certModal');
+      if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeCertModal();
+    });
 
     function copyEmail() {
       const email = 'nguyenthanhphong0713@gmail.com';
