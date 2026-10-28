@@ -12,6 +12,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
+  <!-- AOS (Animate On Scroll) CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+
   <style>
     :root {
       --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -72,6 +75,7 @@
 
     html {
       scroll-behavior: smooth;
+      overflow-x: clip;
     }
 
     body {
@@ -79,7 +83,25 @@
       background-color: var(--bg-base);
       color: var(--text-main);
       line-height: 1.6;
+      overflow-x: clip;
       transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* Đảm bảo AOS mượt mà trên mobile và không xung đột với hiệu ứng hover sẵn có */
+    [data-aos] {
+      will-change: transform, opacity;
+    }
+    @media (max-width: 768px) {
+      [data-aos] {
+        transition-delay: 0ms !important;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      [data-aos] {
+        transition: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+      }
     }
 
     .container {
@@ -1383,6 +1405,118 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* ==========================================================================
+       1. CUSTOM CURSOR (DOT + SMOOTH FOLLOWER) - Chỉ bật trên Desktop có chuột
+       ========================================================================== */
+    .cursor-dot,
+    .cursor-follower {
+      display: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      body.custom-cursor-ready,
+      body.custom-cursor-ready a,
+      body.custom-cursor-ready button,
+      body.custom-cursor-ready [onclick] {
+        cursor: none !important;
+      }
+
+      .cursor-dot,
+      .cursor-follower {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        border-radius: 50%;
+        z-index: 9999;
+        will-change: transform;
+        opacity: 0;
+        transition: opacity 0.25s ease, width 0.25s ease, height 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+      }
+
+      .cursor-dot.is-visible,
+      .cursor-follower.is-visible {
+        opacity: 1;
+      }
+
+      /* Chấm tròn sắc nét ở tâm */
+      .cursor-dot {
+        width: 7px;
+        height: 7px;
+        background-color: var(--primary);
+        box-shadow: 0 0 8px var(--primary);
+      }
+
+      /* Vòng tròn đuổi theo mượt mà */
+      .cursor-follower {
+        width: 34px;
+        height: 34px;
+        border: 1.5px solid var(--primary);
+        background-color: rgba(2, 132, 199, 0.05);
+      }
+
+      [data-theme="dark"] .cursor-follower {
+        background-color: rgba(56, 189, 248, 0.06);
+      }
+
+      /* Hiệu ứng phóng to vòng tròn khi rê chuột vào nút bấm / link */
+      .cursor-dot.is-active {
+        transform: translate3d(var(--dot-x, -100px), var(--dot-y, -100px), 0) scale(0.5);
+      }
+
+      .cursor-follower.is-active {
+        width: 50px;
+        height: 50px;
+        background-color: rgba(2, 132, 199, 0.14);
+        border-color: var(--primary);
+      }
+
+      [data-theme="dark"] .cursor-follower.is-active {
+        background-color: rgba(56, 189, 248, 0.16);
+      }
+    }
+
+    /* ==========================================================================
+       2. SPOTLIGHT CARD EFFECT (VÙNG SÁNG GLOW ĐI THEO CON TRỎ CHUỘT)
+       ========================================================================== */
+    .spotlight-card {
+      position: relative;
+      overflow: hidden;
+      --spotlight-x: -500px;
+      --spotlight-y: -500px;
+      --spotlight-color: rgba(2, 132, 199, 0.09);
+    }
+
+    [data-theme="dark"] .spotlight-card {
+      --spotlight-color: rgba(56, 189, 248, 0.13);
+    }
+
+    .spotlight-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        480px circle at var(--spotlight-x) var(--spotlight-y),
+        var(--spotlight-color),
+        transparent 70%
+      );
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .spotlight-card:hover::before {
+      opacity: 1;
+    }
+
+    .spotlight-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
     /* Responsive */
     @media (max-width: 880px) {
       .hero-layout, .core-pillars, .client-grid, .tools-grid, .cert-card, .contact-card {
@@ -1473,7 +1607,7 @@
     <section class="hero">
       <div class="container">
         <div class="hero-layout">
-          <div class="hero-info">
+          <div class="hero-info" data-aos="fade-up" data-aos-duration="700">
             <div class="hero-tag">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
@@ -1518,7 +1652,7 @@
           </div>
 
           <!-- Card Profile & Tóm Tắt Trọng Tâm Công Việc -->
-          <div class="summary-card">
+          <div class="summary-card" data-aos="fade-left" data-aos-duration="750" data-aos-delay="150">
             <div class="profile-intro">
               <div class="avatar-wrap">
                 <img src="./avatar.jpg" alt="Nguyễn Thanh Phong" class="hero-avatar">
@@ -1584,15 +1718,15 @@
 
         <!-- 3 Điểm Số Thực Tế -->
         <div class="stats-row">
-          <div class="stat-box">
+          <div class="stat-box" data-aos="fade-up" data-aos-delay="0">
             <div class="stat-number">12+</div>
             <div class="stat-label" data-i18n="stat.s1">Dự án doanh nghiệp lớn &amp; tập đoàn trực tiếp quản lý</div>
           </div>
-          <div class="stat-box">
+          <div class="stat-box" data-aos="fade-up" data-aos-delay="100">
             <div class="stat-number">4+</div>
             <div class="stat-label" data-i18n="stat.s2">Phát triển các tool phục vụ nội bộ</div>
           </div>
-          <div class="stat-box">
+          <div class="stat-box" data-aos="fade-up" data-aos-delay="200">
             <div class="stat-number">100%</div>
             <div class="stat-label" data-i18n="stat.s3">Tập trung bài toán thực tế của ERP &amp; tối ưu hóa hiệu năng</div>
           </div>
@@ -1603,7 +1737,7 @@
     <!-- Trọng tâm chuyên môn -->
     <section class="section" id="focus">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head" data-aos="fade-up">
           <span class="section-badge" data-i18n="focus.badge">Năng lực thực tế</span>
           <h2 class="section-title" data-i18n="focus.title">3 Trọng Tâm Chuyên Môn Cốt Lõi</h2>
           <p class="section-desc" data-i18n="focus.subtitle">Kinh nghiệm thực tiễn đúc kết từ vai trò Tech Project Manager và kiến trúc hệ thống ERP doanh nghiệp.</p>
@@ -1611,7 +1745,7 @@
 
         <div class="core-pillars">
           <!-- Cột 1: SQL Server -->
-          <div class="pillar-card">
+          <div class="pillar-card" data-aos="fade-up" data-aos-delay="0">
             <div class="pillar-head">
               <div class="pillar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1642,7 +1776,7 @@
           </div>
 
           <!-- Cột 2: Arito ERP & Fast ERP -->
-          <div class="pillar-card">
+          <div class="pillar-card" data-aos="fade-up" data-aos-delay="100">
             <div class="pillar-head">
               <div class="pillar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1673,7 +1807,7 @@
           </div>
 
           <!-- Cột 3: Tự động hóa & Tooling -->
-          <div class="pillar-card">
+          <div class="pillar-card" data-aos="fade-up" data-aos-delay="200">
             <div class="pillar-head">
               <div class="pillar-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1704,7 +1838,7 @@
     <!-- DỰ ÁN TIÊU BIỂU TẠI ARITO SOLUTIONS -->
     <section class="section" id="projects">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head" data-aos="fade-up">
           <span class="section-badge" data-i18n="arito.badge">Hồ sơ năng lực thực tế</span>
           <h2 class="section-title" data-i18n="arito.title">Dự Án Tiêu Biểu Tại Arito Solutions</h2>
           <p class="section-desc" data-i18n="arito.subtitle">Các dự án doanh nghiệp lớn trực tiếp tiếp nhận yêu cầu cốt lõi, thiết kế giải pháp kỹ thuật và lead development team triển khai.</p>
@@ -1712,12 +1846,12 @@
 
         <!-- Tập đoàn & Doanh nghiệp Lớn -->
         <div class="project-group">
-          <div class="group-header">
+          <div class="group-header" data-aos="fade-up">
             <h3 class="group-title" data-i18n="grp1.title">Khối Tập đoàn &amp; Doanh nghiệp Lớn (Sản xuất, Thương mại Quy mô &amp; Kiểm nghiệm)</h3>
           </div>
           <div class="client-grid">
             <!-- 1.1 Thương Nghiệp Cà Mau -->
-            <div class="client-card">
+            <div class="client-card" data-aos="fade-up" data-aos-delay="0">
               <div class="client-head">
                 <h4 class="client-name">CÔNG TY CP THƯƠNG NGHIỆP CÀ MAU</h4>
                 <span class="client-role-tag">ERP Tổng thể &amp; API</span>
@@ -1731,7 +1865,7 @@
             </div>
 
             <!-- 1.2 Ngọc Nghĩa -->
-            <div class="client-card">
+            <div class="client-card" data-aos="fade-up" data-aos-delay="100">
               <div class="client-head">
                 <h4 class="client-name">CTCP CÔNG NGHIỆP - DỊCH VỤ - THƯƠNG MẠI NGỌC NGHĨA</h4>
                 <span class="client-role-tag">ERP Sản xuất</span>
@@ -1745,7 +1879,7 @@
             </div>
 
             <!-- 1.3 THK Manufacturing -->
-            <div class="client-card">
+            <div class="client-card" data-aos="fade-up" data-aos-delay="0">
               <div class="client-head">
                 <h4 class="client-name">CÔNG TY TNHH THK MANUFACTURING OF VIỆT NAM</h4>
                 <span class="client-role-tag">HRM Doanh nghiệp FDI</span>
@@ -1759,7 +1893,7 @@
             </div>
 
             <!-- 1.4 Global Star -->
-            <div class="client-card">
+            <div class="client-card" data-aos="fade-up" data-aos-delay="100">
               <div class="client-head">
                 <h4 class="client-name">CÔNG TY TNHH CÔNG NGHỆ GLOBAL STAR VIỆT NAM</h4>
                 <span class="client-role-tag">HRM Quản trị Nhân lực</span>
@@ -1773,7 +1907,7 @@
             </div>
 
             <!-- 1.5 Tentamus -->
-            <div class="client-card" style="grid-column: 1 / -1;">
+            <div class="client-card" style="grid-column: 1 / -1;" data-aos="fade-up" data-aos-delay="0">
               <div class="client-head">
                 <h4 class="client-name">CÔNG TY TNHH TENTAMUS VIỆT NAM</h4>
                 <span class="client-role-tag">Đa Phân Hệ (LIMS, E-Sourcing, HRM, ERP)</span>
@@ -1790,12 +1924,12 @@
 
         <!-- Doanh nghiệp Sản xuất & Công nghiệp -->
         <div class="project-group">
-          <div class="group-header">
+          <div class="group-header" data-aos="fade-up">
             <h3 class="group-title" data-i18n="grp2.title">Khối Doanh nghiệp Sản xuất &amp; Công nghiệp</h3>
           </div>
           <div class="client-grid">
             <!-- 2.1 Panel Plus -->
-            <div class="client-card">
+            <div class="client-card" data-aos="fade-up" data-aos-delay="100">
               <div class="client-head">
                 <h4 class="client-name">CÔNG TY TNHH PANEL PLUS VIỆT NAM</h4>
                 <span class="client-role-tag">ERP Sản xuất Gỗ</span>
@@ -1809,7 +1943,7 @@
             </div>
 
             <!-- 2.2 Kim Hồng Lợi -->
-            <div class="client-card">
+            <div class="client-card" data-aos="fade-up" data-aos-delay="0">
               <div class="client-head">
                 <h4 class="client-name">CÔNG TY TNHH SX TM KIM HỒNG LỢI</h4>
                 <span class="client-role-tag">ERP Cơ khí &amp; Vật liệu</span>
@@ -1826,12 +1960,12 @@
 
         <!-- Doanh nghiệp Thương mại, Dịch vụ & Năng lượng -->
         <div class="project-group">
-          <div class="group-header">
+          <div class="group-header" data-aos="fade-up">
             <h3 class="group-title" data-i18n="grp3.title">Khối Doanh nghiệp Thương mại, Dịch vụ &amp; Năng lượng</h3>
           </div>
           <div class="client-grid">
             <!-- 3.1 GreenYellow Việt Nam -->
-            <div class="client-card">
+            <div class="client-card" data-aos="fade-up" data-aos-delay="100">
               <div class="client-head">
                 <h4 class="client-name">CÔNG TY TNHH GREENYELLOW VIỆT NAM</h4>
                 <span class="client-role-tag">Procurement &amp; Chuỗi cung ứng</span>
@@ -1845,7 +1979,7 @@
             </div>
 
             <!-- 3.2 Đầu Tư Quốc Tế Nam An -->
-            <div class="client-card">
+            <div class="client-card" data-aos="fade-up" data-aos-delay="0">
               <div class="client-head">
                 <h4 class="client-name">CÔNG TY CỔ PHẦN ĐẦU TƯ QUỐC TẾ NAM AN</h4>
                 <span class="client-role-tag">ERP F&amp;B Chuỗi Nhà Hàng</span>
@@ -1859,7 +1993,7 @@
             </div>
 
             <!-- 3.3 Nhôm Inox Gia An -->
-            <div class="client-card">
+            <div class="client-card" data-aos="fade-up" data-aos-delay="100">
               <div class="client-head">
                 <h4 class="client-name">CÔNG TY TNHH NHÔM - INOX GIA AN</h4>
                 <span class="client-role-tag">ERP Phân phối Kim loại</span>
@@ -1873,7 +2007,7 @@
             </div>
 
             <!-- 3.4 NLINK Việt Nam -->
-            <div class="client-card">
+            <div class="client-card" data-aos="fade-up" data-aos-delay="0">
               <div class="client-head">
                 <h4 class="client-name">CÔNG TY TNHH NLINK VIỆT NAM</h4>
                 <span class="client-role-tag">ERP Thương mại &amp; Dịch vụ</span>
@@ -1890,11 +2024,11 @@
 
         <!-- Giải trí, F&B & Chuyên ngành Đặc thù -->
         <div class="project-group">
-          <div class="group-header">
+          <div class="group-header" data-aos="fade-up">
             <h3 class="group-title" data-i18n="grp4.title">Khối Giải trí, F&amp;B &amp; Chuyên ngành Đặc thù</h3>
           </div>
           <div class="client-grid">
-            <div class="client-card" style="grid-column: 1 / -1;">
+            <div class="client-card" style="grid-column: 1 / -1;" data-aos="fade-up" data-aos-delay="100">
               <div class="client-head">
                 <h4 class="client-name">CÔNG TY CỔ PHẦN LUNE PRODUCTION</h4>
                 <span class="client-role-tag">ERP Nghệ thuật &amp; Sự kiện</span>
@@ -1914,7 +2048,7 @@
     <!-- Các Extension Tự Phát Triển -->
     <section class="section" id="extensions">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head" data-aos="fade-up">
           <span class="section-badge" data-i18n="ext.badge">Giải quyết bài toán thực tế</span>
           <h2 class="section-title" data-i18n="ext.title">Các Extension &amp; Tiện Ích Tự Phát Triển</h2>
           <p class="section-desc" data-i18n="ext.subtitle">Xuất phát từ chính những khó khăn hàng ngày khi lập trình ERP và thao tác trên SQL Server.</p>
@@ -1922,7 +2056,7 @@
 
         <div class="tools-grid">
           <!-- Extension 1: Lumi SQL Formatter -->
-          <div class="tool-card">
+          <div class="tool-card" data-aos="fade-up" data-aos-delay="0">
             <div>
               <div class="tool-badge-row">
                 <span class="tool-type">SSMS EXTENSION</span>
@@ -1965,7 +2099,7 @@
           </div>
 
           <!-- Extension 2: LumiIntellisense -->
-          <div class="tool-card">
+          <div class="tool-card" data-aos="fade-up" data-aos-delay="100">
             <div>
               <div class="tool-badge-row">
                 <span class="tool-type">VISUAL STUDIO VSIX</span>
@@ -2008,7 +2142,7 @@
           </div>
 
           <!-- Tiện ích 3: Arito Studio & Profiler -->
-          <div class="tool-card">
+          <div class="tool-card" data-aos="fade-up" data-aos-delay="0">
             <div>
               <div class="tool-badge-row">
                 <span class="tool-type">ERP ECOSYSTEM TOOLS</span>
@@ -2042,7 +2176,7 @@
           </div>
 
           <!-- Tiện ích 4: ShortcutCenter & LumiConverter -->
-          <div class="tool-card">
+          <div class="tool-card" data-aos="fade-up" data-aos-delay="100">
             <div>
               <div class="tool-badge-row">
                 <span class="tool-type">DESKTOP &amp; UTILITIES</span>
@@ -2081,7 +2215,7 @@
     <!-- Hành trình phát triển (Timeline: Trường học -> Fast ERP -> Arito ERP) -->
     <section class="section" id="timeline">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head" data-aos="fade-up">
           <span class="section-badge" data-i18n="timeline.badge">Hành trình sự nghiệp</span>
           <h2 class="section-title" data-i18n="timeline.title">Quá Trình Phát Triển &amp; Kinh Nghiệm</h2>
           <p class="section-desc" data-i18n="timeline.subtitle">Từ nền tảng học thuật tại trường đại học đến trải nghiệm chuyên sâu tại Fast ERP và vai trò Tech Project Manager tại Arito ERP.</p>
@@ -2089,7 +2223,7 @@
 
         <div class="timeline">
           <!-- Giai đoạn 3: Tech Project Manager tại Arito ERP (2019 — Hiện tại) -->
-          <div class="timeline-item stage-arito">
+          <div class="timeline-item stage-arito" data-aos="fade-up" data-aos-delay="0">
             <div class="timeline-dot">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect>
@@ -2131,7 +2265,7 @@
           </div>
 
           <!-- Giai đoạn 2: Lập trình viên Fast ERP (2017 — 2019) -->
-          <div class="timeline-item stage-fast">
+          <div class="timeline-item stage-fast" data-aos="fade-up" data-aos-delay="100">
             <div class="timeline-dot">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="16 18 22 12 16 6"></polyline>
@@ -2174,7 +2308,7 @@
           </div>
 
           <!-- Giai đoạn 1: Quá trình học tập tại ĐH Khoa học Tự nhiên TP.HCM (2013 — 2017) -->
-          <div class="timeline-item stage-edu">
+          <div class="timeline-item stage-edu" data-aos="fade-up" data-aos-delay="200">
             <div class="timeline-dot">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
@@ -2220,7 +2354,7 @@
     <!-- Chứng chỉ & Tiêu chuẩn Quốc tế -->
     <section class="section" id="certifications">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header" data-aos="fade-up">
           <div class="section-badge" data-i18n="cert.badge">Chứng nhận quốc tế</div>
           <h2 class="section-title" data-i18n="cert.secTitle">Chứng Chỉ &amp; Tiêu Chuẩn An Toàn Thông Tin</h2>
           <p class="section-subtitle" data-i18n="cert.secSubtitle">
@@ -2228,7 +2362,7 @@
           </p>
         </div>
 
-        <div class="cert-card">
+        <div class="cert-card" data-aos="fade-up" data-aos-delay="100">
           <div class="cert-preview" onclick="openCertModal()" title="Nhấn để phóng to chứng chỉ / Click to view full certificate">
             <img src="./ISO_Cert.png" alt="Chứng chỉ ISO/IEC 27001:2022 - Nguyễn Thanh Phong">
             <div class="cert-zoom-hint">
@@ -2301,7 +2435,7 @@
     <!-- Liên hệ -->
     <section class="section" id="contact">
       <div class="container">
-        <div class="contact-card">
+        <div class="contact-card" data-aos="fade-up">
           <div>
             <h3 data-i18n="contact.title">Liên Hệ &amp; Trao Đổi Công Việc</h3>
             <p data-i18n="contact.desc">
@@ -2405,7 +2539,14 @@
     </div>
   </footer>
 
+  <!-- Custom Cursor (Dot + Follower) -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-follower" id="cursorFollower" aria-hidden="true"></div>
+
   <div class="toast" id="toast">Đã sao chép email vào bộ nhớ tạm!</div>
+
+  <!-- AOS (Animate On Scroll) JS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
   <script>
     // Song ngữ thực tiễn, chi tiết và đầy đủ cho Tech Project Manager & Dự án Arito
@@ -2775,6 +2916,10 @@
           el.innerHTML = i18n[lang][key];
         }
       });
+
+      if (typeof AOS !== 'undefined') {
+        AOS.refresh();
+      }
     }
 
     function setTheme(theme) {
@@ -2824,6 +2969,84 @@
       if (e.key === 'Escape') closeCertModal();
     });
 
+    // Khởi tạo Custom Cursor (Dot + Follower) & Spotlight Card Effect
+    function initCustomCursorAndSpotlight() {
+      // 1. Gắn tự động class .spotlight-card cho các khối Card chính trong trang
+      const cardSelectors = '.summary-card, .stat-box, .pillar-card, .client-card, .tool-card, .timeline-card, .cert-card, .contact-card';
+      const cards = document.querySelectorAll(cardSelectors);
+
+      cards.forEach(card => {
+        card.classList.add('spotlight-card');
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--spotlight-x', (e.clientX - rect.left) + 'px');
+          card.style.setProperty('--spotlight-y', (e.clientY - rect.top) + 'px');
+        });
+      });
+
+      // 2. Custom Cursor (chỉ chạy trên thiết bị có chuột chuẩn để tối ưu cho Mobile)
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+      const dot = document.getElementById('cursorDot');
+      const follower = document.getElementById('cursorFollower');
+      if (!dot || !follower) return;
+
+      document.body.classList.add('custom-cursor-ready');
+
+      let mouseX = -100, mouseY = -100;
+      let followerX = -100, followerY = -100;
+      let isVisible = false;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        if (!isVisible) {
+          isVisible = true;
+          followerX = mouseX;
+          followerY = mouseY;
+          dot.classList.add('is-visible');
+          follower.classList.add('is-visible');
+        }
+
+        // Cập nhật tức thì vị trí chấm tâm (dot)
+        const dotOffset = 3.5;
+        dot.style.transform = `translate3d(${mouseX - dotOffset}px, ${mouseY - dotOffset}px, 0)`;
+      }, { passive: true });
+
+      // Nội suy mượt (Lerp) cho vòng tròn đuổi theo (follower) ở 60fps+
+      function renderCursor() {
+        followerX += (mouseX - followerX) * 0.18;
+        followerY += (mouseY - followerY) * 0.18;
+
+        const isActive = follower.classList.contains('is-active');
+        const followerOffset = isActive ? 25 : 17;
+        follower.style.transform = `translate3d(${followerX - followerOffset}px, ${followerY - followerOffset}px, 0)`;
+
+        requestAnimationFrame(renderCursor);
+      }
+      requestAnimationFrame(renderCursor);
+
+      // Hiệu ứng mở rộng vòng tròn khi rê chuột vào phần tử tương tác
+      const interactiveSelectors = 'a, button, [onclick], .cert-preview';
+      document.querySelectorAll(interactiveSelectors).forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          dot.classList.add('is-active');
+          follower.classList.add('is-active');
+        });
+        el.addEventListener('mouseleave', () => {
+          dot.classList.remove('is-active');
+          follower.classList.remove('is-active');
+        });
+      });
+
+      document.addEventListener('mouseleave', () => {
+        isVisible = false;
+        dot.classList.remove('is-visible');
+        follower.classList.remove('is-visible');
+      });
+    }
+
     function copyEmail() {
       const email = 'nguyenthanhphong0713@gmail.com';
       navigator.clipboard.writeText(email).then(() => {
@@ -2837,6 +3060,19 @@
     document.addEventListener('DOMContentLoaded', () => {
       setTheme(currentTheme);
       setLang(currentLang);
+
+      if (typeof AOS !== 'undefined') {
+        AOS.init({
+          duration: 650,
+          easing: 'ease-out-cubic',
+          once: true,
+          offset: 60,
+          delay: 0,
+          anchorPlacement: 'top-bottom'
+        });
+      }
+
+      initCustomCursorAndSpotlight();
     });
   </script>
 </body>
