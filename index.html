@@ -1383,8 +1383,8 @@
 
     .toast {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 84px;
+      right: 24px;
       background: var(--bg-card);
       color: var(--text-main);
       border: 1px solid var(--primary);
@@ -1392,7 +1392,78 @@
       border-radius: var(--radius-sm);
       font-size: 0.85rem;
       display: none;
+      z-index: 1001;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+    }
+
+    /* Nút Back to Top dạng nổi kèm vòng tiến trình cuộn */
+    .back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      color: var(--primary);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.14);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
       z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(14px) scale(0.92);
+      transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility 0.28s ease, border-color 0.2s ease, background-color 0.2s ease,
+                  box-shadow 0.2s ease;
+    }
+
+    .back-to-top.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .back-to-top:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 12px 28px rgba(2, 132, 199, 0.28);
+    }
+
+    .back-to-top svg.arrow-icon {
+      transition: transform 0.2s ease;
+    }
+
+    .back-to-top:hover svg.arrow-icon {
+      transform: translateY(-2px);
+    }
+
+    .back-to-top .progress-ring {
+      position: absolute;
+      inset: -1px;
+      width: calc(100% + 2px);
+      height: calc(100% + 2px);
+      transform: rotate(-90deg);
+      pointer-events: none;
+    }
+
+    .back-to-top .progress-ring-circle {
+      fill: none;
+      stroke: var(--primary);
+      stroke-width: 2.2;
+      stroke-dasharray: 138;
+      stroke-dashoffset: 138;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.1s linear;
+    }
+
+    .back-to-top:hover .progress-ring-circle {
+      stroke: #ffffff;
     }
 
     .toast.show {
@@ -2539,6 +2610,16 @@
     </div>
   </footer>
 
+  <!-- Nút Back to Top dạng nổi -->
+  <button type="button" class="back-to-top" id="backToTopBtn" onclick="scrollToTop()" aria-label="Cuộn lên đầu trang" title="Lên đầu trang / Back to top">
+    <svg class="progress-ring" viewBox="0 0 48 48">
+      <circle class="progress-ring-circle" id="scrollProgressCircle" cx="24" cy="24" r="22"></circle>
+    </svg>
+    <svg class="arrow-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m18 15-6-6-6 6"></path>
+    </svg>
+  </button>
+
   <!-- Custom Cursor (Dot + Follower) -->
   <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
   <div class="cursor-follower" id="cursorFollower" aria-hidden="true"></div>
@@ -3047,6 +3128,38 @@
       });
     }
 
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function initBackToTop() {
+      const btn = document.getElementById('backToTopBtn');
+      const circle = document.getElementById('scrollProgressCircle');
+      if (!btn) return;
+
+      const circumference = 2 * Math.PI * 22; // r = 22 -> ~138.23
+
+      function updateScrollState() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
+        if (scrollTop > 300) {
+          btn.classList.add('is-visible');
+        } else {
+          btn.classList.remove('is-visible');
+        }
+
+        if (circle && docHeight > 0) {
+          const progress = Math.min(scrollTop / docHeight, 1);
+          const offset = circumference - progress * circumference;
+          circle.style.strokeDashoffset = offset.toFixed(2);
+        }
+      }
+
+      window.addEventListener('scroll', updateScrollState, { passive: true });
+      updateScrollState();
+    }
+
     function copyEmail() {
       const email = 'nguyenthanhphong0713@gmail.com';
       navigator.clipboard.writeText(email).then(() => {
@@ -3072,6 +3185,7 @@
         });
       }
 
+      initBackToTop();
       initCustomCursorAndSpotlight();
     });
   </script>
